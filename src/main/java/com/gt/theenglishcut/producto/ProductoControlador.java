@@ -29,7 +29,7 @@ public class ProductoControlador {
         return this.contextProducto.getIdProducto(id);
     }
 
-    @PostMapping
+    @PostMapping("/crearProducto")
     public Producto guardarProducto(@RequestBody Producto producto){
         return this.contextProducto.guardarProducto(producto);
     }

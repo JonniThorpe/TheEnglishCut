@@ -12,7 +12,13 @@
     <label>De esa forma, comúnmente podemos decir que un jamón 'pata negra'
         es aquel que procede de cerdos ibéricos 100% bellota, aunque es mucho
         más correcto denominarlo como jamón ibérico puro de bellota 100%</label>
+    <%if(tipo.equals("admin")){%>
+    <div>
+        <a href="/CrearProducto.jsp">crear Producto</a>
+    </div>
+    <%}%>
 </div>
+
 <!--
 El siguiente codigo genera el listado de productos segun el tamaño del bucle
 TODO en lugar de un numero, debe ser numero de productos en la bbdd

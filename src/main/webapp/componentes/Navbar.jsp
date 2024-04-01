@@ -1,4 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%
+    String usuario = (String)session.getAttribute("user");
+    String tipo = (String)session.getAttribute("tipo");
+    if(tipo == null){
+        tipo = "usuario";
+        usuario = "";
+    }
+%>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark border-bottom border-body" data-bs-theme="dark">>
@@ -31,9 +41,16 @@
                     <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search" action="/login">
-                <button class="btn btn-outline-success" type="submit">Login</button>
-            </form>
+            <div class="d-flex">
+                <div class="m-xl-2">
+                    <img src="../../iconos/usuario.png"/><br/>
+                    <div class="text-white"><%=usuario%></div>
+                    <div class="text-white"><%=tipo%></div>
+                </div>
+                <button class="btn btn-outline-success" type="submit" >
+                    <a class="nav-link"href="../login.jsp" >Login</a>
+                </button>
+            </div>
         </div>
     </div>
 </nav>
