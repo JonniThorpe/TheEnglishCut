@@ -7,28 +7,29 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Inicio</title>
     <!-- Referencias necesarias para usar bootstrap-->
 
 </head>
 <body>
-<%@ include file="bootstrap/css-js.jsp"%>
+<%@ include file="../../bootstrap/css-js.jsp"%>
 <!--  Incluye el navbar de forma reusable-->
-<%@ include file = "componentes/Navbar.jsp" %>
+<%@ include file = "../componentes/Navbar.jsp" %>
 <div id="carouselExampleFade" class="carousel slide carousel-fade">
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="img/modern-sale-banner-website-slider-template-design_54925-46.jpg" class="d-block w-100" alt="...">
+            <img src="../../img/modern-sale-banner-website-slider-template-design_54925-46.jpg" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-item">
-            <img src="img/modern-sale-banner-website-slider-template-design_54925-46.jpg" class="d-block w-100" alt="...">
+            <img src="../../img/modern-sale-banner-website-slider-template-design_54925-46.jpg" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-item">
-            <img src="img/modern-sale-banner-website-slider-template-design_54925-46.jpg" class="d-block w-100" alt="...">
+            <img src="../../img/modern-sale-banner-website-slider-template-design_54925-46.jpg" class="d-block w-100" alt="...">
         </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">

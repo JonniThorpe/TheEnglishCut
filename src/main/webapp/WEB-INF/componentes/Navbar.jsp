@@ -23,7 +23,7 @@
                     <a class="nav-link active" aria-current="page" href="/" >Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../listadoProductos.jsp" >Productos</a>
+                    <a class="nav-link" href="/listadoProductos" >Productos</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -48,7 +48,7 @@
                     <div class="text-white"><%=tipo%></div>
                 </div>
                 <button class="btn btn-outline-success" type="submit" >
-                    <a class="nav-link"href="../login.jsp" >Login</a>
+                    <a class="nav-link" href="/login" >Login</a>
                 </button>
             </div>
         </div>

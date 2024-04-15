@@ -12,7 +12,7 @@
     <title></title>
 </head>
 <body>
-<%@ include file = "componentes/Navbar.jsp" %>
+<%@ include file = "../componentes/Navbar.jsp" %>
 <h1>HOLA MUNDO</h1>
 <div class="container-sm">
     <form action="/detalle/producto/crearProducto" method="post" modelAttribute="producto">

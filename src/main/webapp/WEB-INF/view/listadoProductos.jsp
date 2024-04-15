@@ -5,7 +5,7 @@
 </head>
 <body>
 
-<%@ include file = "componentes/Navbar.jsp" %>
+<%@ include file = "../componentes/Navbar.jsp" %>
 
 <div class="p-5">
     <h1>Nuestra mejor coleccion de pata negra</h1>
@@ -14,7 +14,7 @@
         más correcto denominarlo como jamón ibérico puro de bellota 100%</label>
     <%if(tipo.equals("admin")){%>
     <div>
-        <a href="/CrearProducto.jsp">crear Producto</a>
+        <a href="/CrearProducto">crear Producto</a>
     </div>
     <%}%>
 </div>
@@ -28,7 +28,7 @@ TODO el maximo por fila debe ser 5 productos despues salta a la siguiente  fila
     <div class="row row-cols-auto">
         <% for (int i = 0; i < 16; i++) {%>
         <div class="col mb-3">
-            <%@ include file = "componentes/cardProducto.jsp" %></div>
+            <%@ include file = "../componentes/cardProducto.jsp" %></div>
         <%}%>
     </div>
 </div>

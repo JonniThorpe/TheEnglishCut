@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-<%@ include file = "componentes/Navbar.jsp" %>
+<%@ include file = "../componentes/Navbar.jsp" %>
 <H1>HOLA MUNDO</H1>
 
 </div>
