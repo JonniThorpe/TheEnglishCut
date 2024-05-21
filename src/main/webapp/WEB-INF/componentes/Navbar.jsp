@@ -47,6 +47,9 @@
                 </li>
             </ul>
             <div class="d-flex">
+                <div>
+                    <a href="confirmarPedidoCliente">carrito de la compra</a>
+                </div>
                 <div class="m-xl-2">
                     <img src="../../iconos/usuario.png"/><br/>
                     <div class="text-white"><%=usuario%></div>

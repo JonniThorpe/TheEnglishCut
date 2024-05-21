@@ -36,7 +36,7 @@ public class Controlador {
 
     private Pedido pedidoCliente = new Pedido();
 
-    List<Producto> productos = new ArrayList<>();
+    List<Producto> productosCarrito = new ArrayList<>();
     /**
      * Metodo que devuelve el incio de la página
      * @return home.jsp
@@ -108,29 +108,42 @@ public class Controlador {
     //hacer el añadir pedido
     @GetMapping("/addProducto")
     public String addProducto (Model model,@RequestParam("id")int id) {
-        productos.add(productoRepository.findById(id).get());
+        productosCarrito.add(productoRepository.findById(id).get());
         return "redirect:/listadoProductos";
     }
 
-    //Sera el futuro confirmar pedido
-    @GetMapping("/confirmarPedido")
-    public String confirmar_Producto_a_Pedido (HttpSession sesion,@RequestParam("id")int id) {
+    @GetMapping("/confirmarPedidoCliente")
+    public String confirmarPedidoCliente (Model model) {
+        model.addAttribute("productosCarrito", productosCarrito);
+        return "/Carrito";
+    }
 
-        Producto producto = productoRepository.findById(id).get();
+    //TODO NO ENTRA POR EL METODO ENTONCES NO ASIGNA EL PEDIDO A CLIENTE NI A PRODUCTO
+    @PostMapping("/confirmarPedido")
+    public String confirmar_Producto_a_Pedido (HttpSession sesion) {
+
+        Usuario user = (Usuario) sesion.getAttribute("usuario");
 
         ProductoaPedido productoaPedido = new ProductoaPedido();
         productoaPedido.setPedido(pedidoCliente);
-        productoaPedido.setProducto(producto);
-        Usuario user = (Usuario) sesion.getAttribute("usuario");
+
 
         pedidoCliente.setUsuario(user);
         pedidoCliente.getProductos().add(productoaPedido);
 
-        producto.getPedidos().add(productoaPedido);
 
-        productoRepository.save(producto);
+        for(Producto productoConfirmado:productosCarrito){
+            productoConfirmado.getPedidos().add(productoaPedido);
+            productoaPedido.setProducto(productoConfirmado);
+            productoRepository.save(productoConfirmado);
+        }
+
+
         pedidoRepository.save(pedidoCliente);
         PedidoaProductoRepository.save(productoaPedido);
+
+        //Limpiamos el carrito para nuevos productos
+        productosCarrito.clear();
 
         return "redirect:/listadoProductos";
     }
