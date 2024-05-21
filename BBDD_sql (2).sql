@@ -19,13 +19,18 @@
 -- Table structure for table `categoria`
 --
 
+LOCK TABLES `categoria` WRITE;
+/*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
+/*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
+UNLOCK TABLES;
+
 DROP TABLE IF EXISTS `categoria`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `categoria` (
-  `ID` int NOT NULL,
-  `Nombre` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+                             `ID` int NOT NULL,
+                             `Nombre` varchar(45) DEFAULT NULL,
+                             PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -33,10 +38,7 @@ CREATE TABLE `categoria` (
 -- Dumping data for table `categoria`
 --
 
-LOCK TABLES `categoria` WRITE;
-/*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
-/*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
-UNLOCK TABLES;
+
 
 --
 -- Table structure for table `inventario`
@@ -46,9 +48,9 @@ DROP TABLE IF EXISTS `inventario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `inventario` (
-  `ID` int NOT NULL,
-  `cantidad` int NOT NULL,
-  PRIMARY KEY (`ID`)
+                              `ID` int NOT NULL,
+                              `cantidad` int NOT NULL,
+                              PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -69,14 +71,14 @@ DROP TABLE IF EXISTS `pedido`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `pedido` (
-  `ID` int NOT NULL AUTO_INCREMENT,
-  `fechaCreacion` date DEFAULT NULL,
-  `entrega` varchar(45) DEFAULT NULL,
-  `usuario` int NOT NULL,
-  `fecha_creacion` date DEFAULT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `fk_Pedido_Usuario1_idx` (`usuario`),
-  CONSTRAINT `fk_Pedido_Usuario1` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`ID`)
+                          `ID` int NOT NULL AUTO_INCREMENT,
+                          `fechaCreacion` date DEFAULT NULL,
+                          `entrega` varchar(45) DEFAULT NULL,
+                          `usuario` int NOT NULL,
+                          `fecha_creacion` date DEFAULT NULL,
+                          PRIMARY KEY (`ID`),
+                          KEY `fk_Pedido_Usuario1_idx` (`usuario`),
+                          CONSTRAINT `fk_Pedido_Usuario1` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -97,15 +99,15 @@ DROP TABLE IF EXISTS `producto`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `producto` (
-  `ID` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) DEFAULT NULL,
-  `Descripcion` varchar(256) DEFAULT NULL,
-  `Precio` double DEFAULT NULL,
-  `imagen` varchar(45) DEFAULT NULL,
-  `Inventario` int DEFAULT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `fk_Producto_Inventario1_idx` (`Inventario`),
-  CONSTRAINT `fk_Producto_Inventario1` FOREIGN KEY (`Inventario`) REFERENCES `inventario` (`ID`)
+                            `ID` int NOT NULL AUTO_INCREMENT,
+                            `nombre` varchar(45) DEFAULT NULL,
+                            `Descripcion` varchar(256) DEFAULT NULL,
+                            `Precio` double DEFAULT NULL,
+                            `imagen` varchar(45) DEFAULT NULL,
+                            `Inventario` int DEFAULT NULL,
+                            PRIMARY KEY (`ID`),
+                            KEY `fk_Producto_Inventario1_idx` (`Inventario`),
+                            CONSTRAINT `fk_Producto_Inventario1` FOREIGN KEY (`Inventario`) REFERENCES `inventario` (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -127,14 +129,14 @@ DROP TABLE IF EXISTS `productoa_categoria`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `productoa_categoria` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `categoria` int DEFAULT NULL,
-  `producto` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK7a49t9scxt07ufnttt9l5nc4q` (`categoria`),
-  KEY `FKhobpgf9of4ajaa820tkejff87` (`producto`),
-  CONSTRAINT `FK7a49t9scxt07ufnttt9l5nc4q` FOREIGN KEY (`categoria`) REFERENCES `categoria` (`ID`),
-  CONSTRAINT `FKhobpgf9of4ajaa820tkejff87` FOREIGN KEY (`producto`) REFERENCES `producto` (`ID`)
+                                       `id` int NOT NULL AUTO_INCREMENT,
+                                       `categoria` int DEFAULT NULL,
+                                       `producto` int DEFAULT NULL,
+                                       PRIMARY KEY (`id`),
+                                       KEY `FK7a49t9scxt07ufnttt9l5nc4q` (`categoria`),
+                                       KEY `FKhobpgf9of4ajaa820tkejff87` (`producto`),
+                                       CONSTRAINT `FK7a49t9scxt07ufnttt9l5nc4q` FOREIGN KEY (`categoria`) REFERENCES `categoria` (`ID`),
+                                       CONSTRAINT `FKhobpgf9of4ajaa820tkejff87` FOREIGN KEY (`producto`) REFERENCES `producto` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -155,14 +157,14 @@ DROP TABLE IF EXISTS `productoa_pedido`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `productoa_pedido` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `pedido` int DEFAULT NULL,
-  `producto` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FKof9udietaqyk6cuxlfn3saqs` (`pedido`),
-  KEY `FKc84os6qqw4oy9j1p0y1x43t0g` (`producto`),
-  CONSTRAINT `FKc84os6qqw4oy9j1p0y1x43t0g` FOREIGN KEY (`producto`) REFERENCES `producto` (`ID`),
-  CONSTRAINT `FKof9udietaqyk6cuxlfn3saqs` FOREIGN KEY (`pedido`) REFERENCES `pedido` (`ID`)
+                                    `id` int NOT NULL AUTO_INCREMENT,
+                                    `pedido` int DEFAULT NULL,
+                                    `producto` int DEFAULT NULL,
+                                    PRIMARY KEY (`id`),
+                                    KEY `FKof9udietaqyk6cuxlfn3saqs` (`pedido`),
+                                    KEY `FKc84os6qqw4oy9j1p0y1x43t0g` (`producto`),
+                                    CONSTRAINT `FKc84os6qqw4oy9j1p0y1x43t0g` FOREIGN KEY (`producto`) REFERENCES `producto` (`ID`),
+                                    CONSTRAINT `FKof9udietaqyk6cuxlfn3saqs` FOREIGN KEY (`pedido`) REFERENCES `pedido` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -183,13 +185,13 @@ DROP TABLE IF EXISTS `productoacategoria`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `productoacategoria` (
-  `Producto` int NOT NULL,
-  `Categoria` int NOT NULL,
-  PRIMARY KEY (`Producto`,`Categoria`),
-  KEY `fk_Producto_has_Categoria_Categoria1_idx` (`Categoria`),
-  KEY `fk_Producto_has_Categoria_Producto1_idx` (`Producto`),
-  CONSTRAINT `fk_Producto_has_Categoria_Categoria1` FOREIGN KEY (`Categoria`) REFERENCES `categoria` (`ID`),
-  CONSTRAINT `fk_Producto_has_Categoria_Producto1` FOREIGN KEY (`Producto`) REFERENCES `producto` (`ID`)
+                                      `Producto` int NOT NULL,
+                                      `Categoria` int NOT NULL,
+                                      PRIMARY KEY (`Producto`,`Categoria`),
+                                      KEY `fk_Producto_has_Categoria_Categoria1_idx` (`Categoria`),
+                                      KEY `fk_Producto_has_Categoria_Producto1_idx` (`Producto`),
+                                      CONSTRAINT `fk_Producto_has_Categoria_Categoria1` FOREIGN KEY (`Categoria`) REFERENCES `categoria` (`ID`),
+                                      CONSTRAINT `fk_Producto_has_Categoria_Producto1` FOREIGN KEY (`Producto`) REFERENCES `producto` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -210,13 +212,13 @@ DROP TABLE IF EXISTS `productoapedido`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `productoapedido` (
-  `Producto` int NOT NULL,
-  `Pedido` int NOT NULL,
-  PRIMARY KEY (`Producto`,`Pedido`),
-  KEY `fk_Producto_has_Pedido_Pedido1_idx` (`Pedido`),
-  KEY `fk_Producto_has_Pedido_Producto1_idx` (`Producto`),
-  CONSTRAINT `fk_Producto_has_Pedido_Pedido1` FOREIGN KEY (`Pedido`) REFERENCES `pedido` (`ID`),
-  CONSTRAINT `fk_Producto_has_Pedido_Producto1` FOREIGN KEY (`Producto`) REFERENCES `producto` (`ID`)
+                                   `Producto` int NOT NULL,
+                                   `Pedido` int NOT NULL,
+                                   PRIMARY KEY (`Producto`,`Pedido`),
+                                   KEY `fk_Producto_has_Pedido_Pedido1_idx` (`Pedido`),
+                                   KEY `fk_Producto_has_Pedido_Producto1_idx` (`Producto`),
+                                   CONSTRAINT `fk_Producto_has_Pedido_Pedido1` FOREIGN KEY (`Pedido`) REFERENCES `pedido` (`ID`),
+                                   CONSTRAINT `fk_Producto_has_Pedido_Producto1` FOREIGN KEY (`Producto`) REFERENCES `producto` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -237,9 +239,9 @@ DROP TABLE IF EXISTS `rol`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `rol` (
-  `ID` int NOT NULL,
-  `Nombre` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+                       `ID` int NOT NULL,
+                       `Nombre` varchar(45) DEFAULT NULL,
+                       PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -261,12 +263,12 @@ DROP TABLE IF EXISTS `usuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usuario` (
-  `ID` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) DEFAULT NULL,
-  `Rol` int NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `fk_Usuario_Rol1_idx` (`Rol`),
-  CONSTRAINT `fk_Usuario_Rol1` FOREIGN KEY (`Rol`) REFERENCES `rol` (`ID`)
+                           `ID` int NOT NULL AUTO_INCREMENT,
+                           `nombre` varchar(45) DEFAULT NULL,
+                           `Rol` int NOT NULL,
+                           PRIMARY KEY (`ID`),
+                           KEY `fk_Usuario_Rol1_idx` (`Rol`),
+                           CONSTRAINT `fk_Usuario_Rol1` FOREIGN KEY (`Rol`) REFERENCES `rol` (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
