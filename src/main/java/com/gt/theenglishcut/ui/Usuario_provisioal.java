@@ -1,11 +1,11 @@
-package com.gt.theenglishcut.model;
+package com.gt.theenglishcut.ui;
 
-public class Usuario {
+public class Usuario_provisioal {
     String user;
 
     String password;
     String tipo;
-    public Usuario(String user, String password, String tipo) {
+    public Usuario_provisioal(String user, String password, String tipo) {
         this.user = user;
         this.password = password;
         this.tipo = tipo;

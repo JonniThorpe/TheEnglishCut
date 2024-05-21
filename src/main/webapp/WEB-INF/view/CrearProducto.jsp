@@ -1,57 +1,54 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Jonni
-  Date: 27/03/2024
-  Time: 12:45
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="from" uri="http://www.springframework.org/tags/form" %>
+<%@ page import="com.gt.theenglishcut.ui.producto" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
 
+    producto producto = (com.gt.theenglishcut.ui.producto) request.getAttribute("producto");
+    int cantidadProducto = (int) request.getAttribute("cantidadProducto");
+
+%>
 <html>
 <head>
     <title></title>
 </head>
 <body>
 <%@ include file = "../componentes/Navbar.jsp" %>
-<h1>HOLA MUNDO</h1>
+<h1>Crear producto</h1>
 <div class="container-sm">
-    <form action="/detalle/producto/crearProducto" method="post" modelAttribute="producto">
-        <div class="form-group">
-            <label for="exampleFormControlInput1">Nombre del producto</label>
-            <input name="nombre" type="text" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+    <form:form action="/guardarProducto" method="post" modelAttribute="producto">
+        <div class="mb-3">
+            <label >Nombre del producto</label>
+            <from:input path="nombre" class="col-md-8 form-control input-md"/>
         </div>
-        <div class="form-group">
-            <label for="exampleFormControlTextarea1">Descripcion del producto</label>
-            <textarea name="descripcion"  class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <div class="mb-3">
+            <label>Descripcion del producto</label>
+            <form:textarea path="descripcion" class="form-control" rows="3"></form:textarea>
         </div>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text">$</span>
-            </div>
-            <input name="precio" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-            <div class="input-group-append">
-                <span class="input-group-text">.00</span>
-            </div>
+        <div class="mb-3">
+            <label>Precio del producto</label>
+            <form:input path="precio" class="col-md-8 form-control input-md" />
         </div>
-        <div class="form-group">
+        <div class="form-group mb-3">
             <label for="exampleFormControlSelect1">Cantidad</label>
-            <select name="cantidad" class="form-control" id="exampleFormControlSelect1">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-            </select>
+            <form:select path="cantidad" class="form-control" id="exampleFormControlSelect1">
+                <%
+                    for (int i = 0; i < cantidadProducto; i++) {
+                    %>
+                <option><%=i%></option>
+                         <%
+                    }%>
+            </form:select>
         </div>
-        <div class="form-group">
-            <label for="exampleFormControlFile1">imagen</label>
-            <input name="img" type="file" class="form-control-file" id="exampleFormControlFile1">
+        <div class="form-group mb-3">
+            <label >imagen</label>
+            <form:input path="imagen" type="text" class="form-control" />
         </div>
-        <div class="input-group flex-nowrap">
-            <button type="submit" class="btn btn-primary">Enviar</button>
+        <div class="input-group flex-nowrap mb-3">
+            <button type="submit" class="btn btn-primary ">Enviar</button>
         </div>
-        <a href="home.jsp" class="btn btn-primary">Volver</a>
-    </form>
+        <a href="home.jsp" class="btn btn-primary ">Volver</a>
+    </form:form>
 </div>
 </body>
 </html>

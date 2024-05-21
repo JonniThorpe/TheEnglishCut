@@ -4,7 +4,7 @@
     String usuario = (String)session.getAttribute("user");
     String tipo = (String)session.getAttribute("tipo");
     if(tipo == null){
-        tipo = "usuario";
+        tipo = "Usuario";
         usuario = "";
     }
 %>
@@ -25,6 +25,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/listadoProductos" >Productos</a>
                 </li>
+                <%if(tipo.equals("Administrador")){%>
+                <li class="nav-item">
+                    <a class="nav-link" href="/listarPedidos" >Pedidos</a>
+                </li>
+                <%}%>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Catálogo

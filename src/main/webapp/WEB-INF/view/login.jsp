@@ -8,33 +8,21 @@
     <title>Title</title>
 </head>
 <body>
-<div class="d-flex justify-content-center" >
-    <form action="/loginUser" method="post" modelAttribute="usuario">
+<div class=" mt-2 d-flex justify-content-center" >
+    <form action="/loginUser" method="post">
         <h1>The English Cut</h1>
         <div class="grid gap-3">
             <div class="p-2 g-col-6">
                 <div class="input-group flex-nowrap">
                     <span class="input-group-text" id="addon-wrapping-1">User</span>
-                    <input name="user" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+                    <input name="nombre" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping"/>
+
                 </div>
             </div>
             <div class="p-2 g-col-6">
                 <div class="input-group flex-nowrap">
                     <span class="input-group-text" id="addon-wrapping-2">Password</span>
-                    <input name="password" type="text" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="addon-wrapping">
-                </div>
-            </div>
-            <div class="p-2 g-col-6">
-                <div class="input-group flex-nowrap">
-                    <div class="form-floating">
-                        <select class="form-select" id="floatingSelect" name="tipo" aria-label="Floating label select example">
-                            <option selected>Selecciona entre las opciones</option>
-                            <option value="admin">Administrador</option>
-                            <option value="user">Usuario</option>
-                            <option value="empleado">Empleado</option>
-                        </select>
-                        <label for="floatingSelect">Tipos de usuario</label>
-                    </div>
+                    <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="addon-wrapping">
                 </div>
             </div>
             <div class="p-2 g-col-6">
@@ -43,8 +31,8 @@
                 </div>
             </div>
         </div>
+        <a href="home.jsp" class="btn btn-primary">Volver</a>
     </form>
-    <a href="home.jsp" class="btn btn-primary">Volver</a>
     <br/>
 </div>
 </body>
