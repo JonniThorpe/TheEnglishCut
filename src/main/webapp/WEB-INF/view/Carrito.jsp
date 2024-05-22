@@ -14,6 +14,12 @@ List<Producto> productosCarrito = (List<Producto>) request.getAttribute("product
 <head>
     <title>Title</title>
 </head>
+<!--
+TODO Stackear producto en cantidad y precio si son el mismo tipo de producto
+El listado de productos muestra cada producto de la lista productosCarrito definida en la parte superior de esta pagina,
+es necesario que aquel producto que este en la lista varias veces se muestre en una sola fila en lugar de varias,
+donde aparezca ese mismo producto y el numero de veces que aparece en el carrito y un sumatorio del precio del producto
+-->
 <body>
 <%@ include file = "../componentes/Navbar.jsp" %>
     <form method="post" action="/confirmarPedido">
