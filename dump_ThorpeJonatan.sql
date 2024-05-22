@@ -71,7 +71,7 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `theenglishcut`.`Pedido`
+-- Table `theenglishcut`.`PedidoDTO`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `theenglishcut`.`Pedido` (
   `ID` INT NOT NULL AUTO_INCREMENT,

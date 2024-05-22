@@ -10,8 +10,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
 
-    List<Pedido> pedidos = (List<Pedido>) request.getAttribute("Pedidos");
-
+    List<Pedido> pedidos = (List<Pedido>) request.getAttribute("pedidos");
+    String mensaje = (String) request.getAttribute("mensaje");
 %>
 
 <html>
@@ -19,32 +19,39 @@
     <title>Listado de pedidos</title>
 </head>
 <body>
-
 <%@ include file = "../componentes/Navbar.jsp" %>
+<%if(!pedidos.isEmpty()){%>
+    <div class="container">
+        <table class="table">
+                <tr>
+                    <th class="col">Id</th>
+                    <th class="col">Usuario</th>
+                    <th class="col">Listado Productos</th>
+                    <th class="col">Fecha Creacion</th>
+                    <th class="col">Estado</th>
+                </tr>
+                <%for(Pedido pedido:pedidos){%>
+                <tr>
+                    <td><%=pedido.getID()%></td>
+                    <td><%=pedido.getUsuario().getNombre()%></td>
+                    <td>
+                        <ul>
+                            <%for(ProductoaPedido productoDePedido: pedido.getProductos()){%>
 
-<tr>
-    <th>Id</th>
-    <th>Usuario</th>
-    <th>Listado Productos</th>
-    <th>Fecha Creacion</th>
-    <th>Entrega</th>
-</tr>
-<%for(Pedido pedido:pedidos){%>
-<tr>
-    <td><%=pedido.getUsuario()%></td>
-    <td>
-        <ul>
-            <%for(ProductoaPedido producto: pedido.getProductos()){%>
+                                <li><%=productoDePedido.getProducto().getNombre()%></li>
 
-                <li><%=producto.getProducto().getNombre()%></li>
-
-            <%}%>
-        </ul>
-    </td>
-    <td><%=pedido.getFechaCreacion().toString()%></td>
-    <td><%=pedido.getEntrega()%></td>
-    <td></td>
-</tr>
+                            <%}%>
+                        </ul>
+                    </td>
+                    <td><%=pedido.getFechaCreacion().toString()%></td>
+                    <td><%=pedido.getEntrega()%></td>
+                    <td></td>
+                </tr>
+                <%}%>
+        </table>
+    </div>
+<%}else{%>
+<h1><%=mensaje%></h1>
 <%}%>
 </body>
 </html>

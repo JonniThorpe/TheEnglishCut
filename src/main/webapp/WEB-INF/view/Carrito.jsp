@@ -23,10 +23,11 @@ donde aparezca ese mismo producto y el numero de veces que aparece en el carrito
 <body>
 <%@ include file = "../componentes/Navbar.jsp" %>
     <form method="post" action="/confirmarPedido">
-        <input hidden name="listaProductos" value="<%=productosCarrito%>"/>
+
         <div class="container-fluid">
             <table class="table">
                 <tr>
+                    <th></th>
                     <th class="col">Nombre</th>
                     <th class="col">Precio</th>
                 </tr>
@@ -36,16 +37,17 @@ donde aparezca ese mismo producto y el numero de veces que aparece en el carrito
                 double precio = producto.getPrecio();
                 %>
                 <tr>
+                    <td><img src="../../img/<%=producto.getImagen()%>" width="64" height="64"></td>
                     <td><%=producto.getNombre()%></td>
-                    <td><%=producto.getPrecio()%></td>
+                    <td><%=producto.getPrecio()%>€</td>
                 </tr>
                 <%total = total+precio;}%>
                 <tr>
-                    <td>Total</td>
-                    <td><%=total%></td>
+                    <td colspan="2">Total</td>
+                    <td ><%=total%>€</td>
                 </tr>
             </table>
-            <button type="button" class="btn btn-primary">Realizar pedido </button>
+            <button type="submit" class="btn btn-primary">Realizar pedido </button>
         </div>
     </form>
 </body>

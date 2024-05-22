@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -36,12 +37,12 @@ public class Controlador {
     List<Producto> productosCarrito = new ArrayList<>();
 
     /**
-     * Metodo que devuelve el incio de la página
-     * @return home.jsp
+     * Devuelve la pagina login para acceder con un usuario
+     * @return login.jsp
      */
-    @GetMapping("/")
-    public String doInicio () {
-        return "/home";
+    @GetMapping("/login")
+    public String doLogin () {
+        return "/login";
     }
 
     @PostMapping("/loginUser")
@@ -51,6 +52,15 @@ public class Controlador {
         sesion.setAttribute("user",usuario.getNombre());
         sesion.setAttribute("tipo",usuario.getRol().getNombre());
         return "redirect:/";
+    }
+
+    /**
+     * Metodo que devuelve el incio de la página
+     * @return home.jsp
+     */
+    @GetMapping("/")
+    public String doInicio () {
+        return "/home";
     }
 
     /**
@@ -69,14 +79,18 @@ public class Controlador {
         return "/listadoProductos";
     }
 
-    /**
-     * Devuelve la pagina login para acceder con un usuario
-     * @return login.jsp
-     */
-    @GetMapping("/login")
-    public String doLogin () {
-        return "/login";
+    @GetMapping("/listarPedidos")
+    public String listar_Pedidos(Model model) {
+        List<Pedido> pedidoList = pedidoRepository.findAll();
+        if(pedidoList == null || pedidoList.isEmpty()){
+            model.addAttribute("mensaje", "No hay pedidos");
+        }
+        model.addAttribute("pedidos", pedidoList);
+
+        return "/ListadoPedidos";
     }
+
+
     @GetMapping("/CrearProducto")
     public String crearProducto (Model modelo) {
         modelo.addAttribute("producto",  new producto());
@@ -129,42 +143,51 @@ public class Controlador {
 
     //TODO NO ENTRA POR EL METODO ENTONCES NO ASIGNA EL PEDIDO A CLIENTE NI A PRODUCTO
     @PostMapping("/confirmarPedido")
-    public String confirmar_Producto_a_Pedido (HttpSession sesion, @RequestParam("listaProductos")List<Producto> listaPedido) {
+    public String confirmar_Producto_a_Pedido (HttpSession sesion) {
 
-        Usuario user = (Usuario) sesion.getAttribute("usuario");
-
-        ProductoaPedido productoaPedido = new ProductoaPedido();
-        productoaPedido.setPedido(pedidoCliente);
-
-
-        pedidoCliente.setUsuario(user);
-        pedidoCliente.getProductos().add(productoaPedido);
-
-
-        for(Producto productoConfirmado:listaPedido){
-            productoConfirmado.getPedidos().add(productoaPedido);
-            productoaPedido.setProducto(productoConfirmado);
-            productoRepository.save(productoConfirmado);
+        String user = (String) sesion.getAttribute("user");
+        if (user == null) {
+            // Manejar el caso en que el usuario no esté autenticado
+            return "redirect:/login"; // Redirigir a la página de inicio de sesión
         }
+        Usuario clientePedido = usuarioRepository.findByNombreUser(user);
 
+
+        List<ProductoaPedido> productoaPedidoLista = new ArrayList<>();
+
+
+        //Creamos el pedido
+        pedidoCliente.setUsuario(clientePedido);
+        pedidoCliente.setFechaCreacion(new Date());
+        pedidoCliente.setEntrega("NO CONFIRMADO");
+        pedidoRepository.save(pedidoCliente);
+
+
+        for(Producto productoConfirmado:productosCarrito){
+            ProductoaPedido productoaPedido = new ProductoaPedido();
+
+
+            productoaPedido.setProducto(productoConfirmado);
+            productoaPedido.setPedido(pedidoCliente);
+
+
+            PedidoaProductoRepository.save(productoaPedido);
+            productoaPedidoLista.add(productoaPedido);
+
+            productoConfirmado.setPedidos(productoaPedidoLista);
+            productoRepository.save(productoConfirmado);
+
+        }
+        pedidoCliente.setProductos(productoaPedidoLista);
 
         pedidoRepository.save(pedidoCliente);
-        PedidoaProductoRepository.save(productoaPedido);
 
-        //Limpiamos el carrito para nuevos productos
+
+
+        //Limpiamos el carrito para nuevos productos y nuevo pedido
         productosCarrito.clear();
+        pedidoCliente = new Pedido();
 
         return "redirect:/listadoProductos";
     }
-
-
-
-
-    @GetMapping("/listarPedidos")
-    public String listarPedidos(Model model) {
-        model.addAttribute("pedidos", pedidoRepository.findAll());
-        return "/listadoPedidos";
-    }
-
-
 }

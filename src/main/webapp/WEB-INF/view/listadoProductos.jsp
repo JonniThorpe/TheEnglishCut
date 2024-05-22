@@ -18,13 +18,35 @@
     <%@ include file = "../componentes/Navbar.jsp" %>
 
     <div class="p-5">
-        <h1>Nuestra mejor coleccion de pata negra</h1>
-        <label>De esa forma, comúnmente podemos decir que un jamón 'pata negra'
+        <h1>Nuestra mejor coleccion productoss</h1>
+        <label>
+            De esa forma, comúnmente podemos decir que un jamón 'pata negra'
             es aquel que procede de cerdos ibéricos 100% bellota, aunque es mucho
-            más correcto denominarlo como jamón ibérico puro de bellota 100%</label>
+            más correcto denominarlo como jamón ibérico puro de bellota 100%
+        </label>
+        <%if(usuario.isEmpty()){%>
+        <div class="row">
+            <div class="col">
+                <img src="../../iconos/info.png" class="img-thumbnail" alt="...">
+                <div>
+                    <p>
+                        No olvide hacer <b>Login</b> para poder realizar pedidos en nuestra web
+                    </p>
+
+                </div>
+            </div>
+        </div>
+        <%} else if (tipo.equals("Usuario") && !usuario.isEmpty()) {%>
+        <div>
+            <p>
+                <br/><b>pulse el boton asignar producto y luego en el icono carrito podra realizar su pedido.
+                !Gracias!</b>
+            </p>
+        </div>
+        <%}%>
         <%if(tipo.equals("Administrador")){%>
         <div>
-            <a href="/CrearProducto">crear Producto</a>
+            <a class="btn btn-primary" href="/CrearProducto">crear Producto</a>
         </div>
         <%}%>
     </div>
@@ -43,12 +65,14 @@
                     <div class="card-body">
                         <h5 class="card-title"><%=producto.getNombre()%></h5>
                         <p class="card-text"><%=producto.getDescripcion()%></p>
-                        <a href="/addProducto?id=<%=producto.getID()%>" class="btn btn-primary">Asignar producto al carrito</a>
+                        <%if(!usuario.isEmpty() && !tipo.equals("Administrador")){%>
+                            <a href="/addProducto?id=<%=producto.getID()%>" class="btn btn-primary">Asignar producto al carrito</a>
+                        <%}%>
                         <div class="fw-bold">Cantidad disponible: <%=producto.getInventario().getCantidad()%></div>
                         <%if(tipo.equals("Administrador")){%>
-                        <div>
-                            <a href="/eliminarProducto?id=<%=producto.getID()%>">eliminar Producto</a>
-                        </div>
+                            <div>
+                                <a href="/eliminarProducto?id=<%=producto.getID()%>">eliminar Producto</a>
+                            </div>
                         <%}%>
                     </div>
                 </div>
