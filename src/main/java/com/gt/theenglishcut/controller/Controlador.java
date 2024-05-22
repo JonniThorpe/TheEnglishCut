@@ -1,13 +1,7 @@
 package com.gt.theenglishcut.controller;
 
-import com.gt.theenglishcut.dao.PedidoAProductoRepository;
-import com.gt.theenglishcut.dao.PedidoRepository;
-import com.gt.theenglishcut.dao.ProductoRepository;
-import com.gt.theenglishcut.dao.UsuarioRepository;
-import com.gt.theenglishcut.entity.Pedido;
-import com.gt.theenglishcut.entity.Producto;
-import com.gt.theenglishcut.entity.ProductoaPedido;
-import com.gt.theenglishcut.entity.Usuario;
+import com.gt.theenglishcut.dao.*;
+import com.gt.theenglishcut.entity.*;
 import com.gt.theenglishcut.ui.Usuario_provisioal;
 import com.gt.theenglishcut.ui.producto;
 import jakarta.servlet.http.HttpSession;
@@ -34,9 +28,13 @@ public class Controlador {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private InventarioRepository inventarioRepository;
+
     private Pedido pedidoCliente = new Pedido();
 
     List<Producto> productosCarrito = new ArrayList<>();
+
     /**
      * Metodo que devuelve el incio de la página
      * @return home.jsp
@@ -89,6 +87,12 @@ public class Controlador {
     @PostMapping("/guardarProducto")
     public String guardarProducto (Model modelo, @ModelAttribute("producto")producto producto) {
         Producto productoNuevo = new Producto();
+        Inventario inventario = new Inventario();
+
+        inventario.setCantidad(producto.getCantidad());
+        inventarioRepository.save(inventario);
+
+        productoNuevo.setInventario(inventario);
         productoNuevo.setNombre(producto.getNombre());
         productoNuevo.setDescripcion(producto.getDescripcion());
         productoNuevo.setImagen(producto.getImagen());
@@ -100,14 +104,19 @@ public class Controlador {
 
     @GetMapping("/eliminarProducto")
     public String eliminarProducto (Model model, @RequestParam("id")int id) {
+        Producto producto = productoRepository.findById(id).orElse(null);
+        if(producto == null){
+            System.out.println("ningun producto eliminado, no deberia ser null el producto");
+            return "redirect:/listadoProductos";
+        }
         productoRepository.deleteById(id);
-
+        inventarioRepository.deleteById(producto.getInventario().getID());
         return "redirect:/listadoProductos";
     }
 
     //hacer el añadir pedido
     @GetMapping("/addProducto")
-    public String addProducto (Model model,@RequestParam("id")int id) {
+    public String addProducto (@RequestParam("id")int id) {
         productosCarrito.add(productoRepository.findById(id).get());
         return "redirect:/listadoProductos";
     }
@@ -120,7 +129,7 @@ public class Controlador {
 
     //TODO NO ENTRA POR EL METODO ENTONCES NO ASIGNA EL PEDIDO A CLIENTE NI A PRODUCTO
     @PostMapping("/confirmarPedido")
-    public String confirmar_Producto_a_Pedido (HttpSession sesion) {
+    public String confirmar_Producto_a_Pedido (HttpSession sesion, @RequestParam("listaProductos")List<Producto> listaPedido) {
 
         Usuario user = (Usuario) sesion.getAttribute("usuario");
 
@@ -132,7 +141,7 @@ public class Controlador {
         pedidoCliente.getProductos().add(productoaPedido);
 
 
-        for(Producto productoConfirmado:productosCarrito){
+        for(Producto productoConfirmado:listaPedido){
             productoConfirmado.getPedidos().add(productoaPedido);
             productoaPedido.setProducto(productoConfirmado);
             productoRepository.save(productoConfirmado);

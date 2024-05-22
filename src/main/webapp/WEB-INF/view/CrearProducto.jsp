@@ -33,9 +33,9 @@
             <label for="exampleFormControlSelect1">Cantidad</label>
             <form:select path="cantidad" class="form-control" id="exampleFormControlSelect1">
                 <%
-                    for (int i = 0; i < cantidadProducto; i++) {
+                    for (int i = 0; i < 100; i++) {
                     %>
-                <option><%=i%></option>
+                <option value="<%=i%>"><%=i%></option>
                          <%
                     }%>
             </form:select>

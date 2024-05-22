@@ -46,18 +46,22 @@
                     <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                 </li>
             </ul>
-            <div class="d-flex">
-                <div>
-                    <a href="confirmarPedidoCliente">carrito de la compra</a>
+            <div class="text-center">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <a class="align-middle" href="confirmarPedidoCliente">
+                            <img src="../../iconos/carros.png"/>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <img src="../../iconos/usuario.png"/>
+                        <div class="text-white"><%=usuario%></div>
+                        <div class="text-white"><%=tipo%></div>
+                    </div>
+                    <div class="col">
+                        <a class="btn btn-outline-success" href="/login" >Login</a>
+                    </div>
                 </div>
-                <div class="m-xl-2">
-                    <img src="../../iconos/usuario.png"/><br/>
-                    <div class="text-white"><%=usuario%></div>
-                    <div class="text-white"><%=tipo%></div>
-                </div>
-                <button class="btn btn-outline-success" type="submit" >
-                    <a class="nav-link" href="/login" >Login</a>
-                </button>
             </div>
         </div>
     </div>

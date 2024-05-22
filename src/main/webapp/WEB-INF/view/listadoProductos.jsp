@@ -37,13 +37,14 @@
     <div class="container text-center">
         <div class="row row-cols-3">
             <% for (Producto producto : productos) {%>
-            <div class="col mb-3">
+            <div class="col col-12 col-sm-8 col-md-6 col-lg mb-3">
                 <div class="card " style="width: 18rem;">
                     <img src="../../img/<%=producto.getImagen()%>" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title"><%=producto.getNombre()%></h5>
                         <p class="card-text"><%=producto.getDescripcion()%></p>
                         <a href="/addProducto?id=<%=producto.getID()%>" class="btn btn-primary">Asignar producto al carrito</a>
+                        <div class="fw-bold">Cantidad disponible: <%=producto.getInventario().getCantidad()%></div>
                         <%if(tipo.equals("Administrador")){%>
                         <div>
                             <a href="/eliminarProducto?id=<%=producto.getID()%>">eliminar Producto</a>
@@ -51,8 +52,8 @@
                         <%}%>
                     </div>
                 </div>
-            <%}%>
             </div>
+            <%}%>
         </div>
     </div>
     <%}else{%>

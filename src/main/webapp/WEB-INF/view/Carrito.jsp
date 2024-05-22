@@ -17,6 +17,7 @@ List<Producto> productosCarrito = (List<Producto>) request.getAttribute("product
 <body>
 <%@ include file = "../componentes/Navbar.jsp" %>
     <form method="post" action="/confirmarPedido">
+        <input hidden name="listaProductos" value="<%=productosCarrito%>"/>
         <div class="container-fluid">
             <table class="table">
                 <tr>
