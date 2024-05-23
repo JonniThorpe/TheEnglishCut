@@ -35,11 +35,11 @@
                         Catálogo
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Comida</a></li>
+                        <li><a class="dropdown-item" href="/listadoProductosComida">Comida</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Ropa</a></li>
+                        <li><a class="dropdown-item" href="/listadoProductosRopa">Ropa</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Muebles</a></li>
+                        <li><a class="dropdown-item" href="/listadoProductosMuebles">Muebles</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">

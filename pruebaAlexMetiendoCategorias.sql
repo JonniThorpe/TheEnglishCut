@@ -1,0 +1,1 @@
+SELECT * FROM theenglishcut.inventario;

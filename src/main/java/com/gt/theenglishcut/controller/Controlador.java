@@ -71,12 +71,72 @@ public class Controlador {
     public String verProductos (Model model) {
 
         List<Producto> productoList = productoRepository.findAll();
-        if(productoList == null || productoList.isEmpty()){
+        if(productoList.isEmpty()){
             model.addAttribute("mensaje", "No hay productos");
         }
 
         model.addAttribute("productos", productoList);
         return "/listadoProductos";
+    }
+
+    @GetMapping("/listadoProductosComida")
+    public String verProductosComida (Model model) {
+
+        List<Producto> productoList = buscarProductosFiltro("COMIDA");
+
+        if(productoList.isEmpty()){
+            model.addAttribute("mensaje", "No hay productos");
+        }
+        model.addAttribute("productosComida", productoList);
+        return "/listadoProductosComida";
+    }
+
+    @GetMapping("/listadoProductosRopa")
+    public String verProductosRopa (Model model) {
+
+        List<Producto> productoList = buscarProductosFiltro("ROPA");
+
+        if(productoList.isEmpty()){
+            model.addAttribute("mensaje", "No hay productos");
+        }
+
+        model.addAttribute("productosRopa", productoList);
+        return "/listadoProductosRopa";
+    }
+
+    @GetMapping("/listadoProductosMuebles")
+    public String verProductosMuebles (Model model) {
+
+        List<Producto> productoList = buscarProductosFiltro("MUEBLES");
+
+        if(productoList.isEmpty()){
+            model.addAttribute("mensaje", "No hay productos");
+        }
+
+        model.addAttribute("productosMuebles", productoList);
+        return "/listadoProductosMuebles";
+    }
+
+    private List<Producto> buscarProductosFiltro(String categoria) {
+
+        List<Producto> aux = productoRepository.findAll();
+        List<Producto> productoList = new ArrayList<>();
+        boolean anadir = false;
+
+        for(Producto p:aux){
+            for(ProductoaCategoria c:p.getCategorias()){
+                if(c.getCategoria().getNombre().equals(categoria)){
+                    anadir = true;
+                    break;
+                }
+            }
+            if(anadir){
+                productoList.add(p);
+                anadir = false;
+            }
+        }
+
+        return productoList;
     }
 
     @GetMapping("/listarPedidos")
