@@ -1,5 +1,6 @@
 <%@ page import="com.gt.theenglishcut.entity.Producto" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.*" %>
+<%--
   Created by IntelliJ IDEA.
   User: Jonni
   Date: 21/05/2024
@@ -8,7 +9,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-List<Producto> productosCarrito = (List<Producto>) request.getAttribute("productosCarrito");
+
+Map<Producto, Integer> productosCarrito = (Map<Producto, Integer>) request.getAttribute("productosCarrito");
 %>
 <html>
 <head>
@@ -29,19 +31,27 @@ donde aparezca ese mismo producto y el numero de veces que aparece en el carrito
                 <tr>
                     <th></th>
                     <th class="col">Nombre</th>
-                    <th class="col">Precio</th>
+                    <th class="col">Precio/Unidad</th>
+                    <th class="col">Número Unidades</th>
+                    <th class="col">Precio Total</th>
                 </tr>
                 <%
+
                 double total = 0;
-                    for(Producto producto: productosCarrito){
+                int num_productos;
+                    for(Producto producto: productosCarrito.keySet()){
+                        num_productos=productosCarrito.get(producto);
                 double precio = producto.getPrecio();
+                double precio_total=precio * num_productos;
                 %>
                 <tr>
                     <td><img src="../../img/<%=producto.getImagen()%>" width="64" height="64"></td>
                     <td><%=producto.getNombre()%></td>
                     <td><%=producto.getPrecio()%>€</td>
+                    <td><%=num_productos%>uds</td>
+                    <td><%=precio_total%></td>
                 </tr>
-                <%total = total+precio;}%>
+                <%total = total+precio_total;}%>
                 <tr>
                     <td colspan="2">Total</td>
                     <td ><%=total%>€</td>

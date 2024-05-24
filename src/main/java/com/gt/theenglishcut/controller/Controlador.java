@@ -10,9 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class Controlador {
@@ -34,7 +32,8 @@ public class Controlador {
 
     private Pedido pedidoCliente = new Pedido();
 
-    List<Producto> productosCarrito = new ArrayList<>();
+
+    Map<Producto,Integer> productosCarrito= new Hashtable<>();
 
     /**
      * Devuelve la pagina login para acceder con un usuario
@@ -191,7 +190,18 @@ public class Controlador {
     //hacer el añadir pedido
     @GetMapping("/addProducto")
     public String addProducto (@RequestParam("id")int id) {
-        productosCarrito.add(productoRepository.findById(id).get());
+        Producto producto_meter = productoRepository.findById(id).get();//Este va a ser el producto que vamos a meter
+        boolean existe=false;
+        for(Producto producto: productosCarrito.keySet()){
+            if(producto.getNombre().toLowerCase().equals(producto_meter.getNombre().toLowerCase())){
+                existe=true;
+                int unidades = productosCarrito.get(producto)+1;
+                productosCarrito.put(producto,unidades);
+            }
+        }
+        if(!existe){
+            productosCarrito.put(producto_meter,1);
+        }
         return "redirect:/listadoProductos";
     }
 
@@ -223,7 +233,7 @@ public class Controlador {
         pedidoRepository.save(pedidoCliente);
 
 
-        for(Producto productoConfirmado:productosCarrito){
+        for(Producto productoConfirmado:productosCarrito.keySet()){
             ProductoaPedido productoaPedido = new ProductoaPedido();
 
 
@@ -246,6 +256,7 @@ public class Controlador {
 
         //Limpiamos el carrito para nuevos productos y nuevo pedido
         productosCarrito.clear();
+
         pedidoCliente = new Pedido();
 
         return "redirect:/listadoProductos";
