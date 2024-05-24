@@ -67,9 +67,9 @@ public class Controlador {
      * @return listadoProductos.jsp
      */
     @GetMapping("/listadoProductos")
-    public String verProductos (Model model) {
+    public String verProductos (Model model, @RequestParam("Categoria") String categoria) {
 
-        List<Producto> productoList = productoRepository.findAll();
+        List<Producto> productoList = buscarProductosFiltro(categoria);
         if(productoList.isEmpty()){
             model.addAttribute("mensaje", "No hay productos");
         }
@@ -78,60 +78,27 @@ public class Controlador {
         return "/listadoProductos";
     }
 
-    @GetMapping("/listadoProductosComida")
-    public String verProductosComida (Model model) {
-
-        List<Producto> productoList = buscarProductosFiltro("COMIDA");
-
-        if(productoList.isEmpty()){
-            model.addAttribute("mensaje", "No hay productos");
-        }
-        model.addAttribute("productosComida", productoList);
-        return "/listadoProductosComida";
-    }
-
-    @GetMapping("/listadoProductosRopa")
-    public String verProductosRopa (Model model) {
-
-        List<Producto> productoList = buscarProductosFiltro("ROPA");
-
-        if(productoList.isEmpty()){
-            model.addAttribute("mensaje", "No hay productos");
-        }
-
-        model.addAttribute("productosRopa", productoList);
-        return "/listadoProductosRopa";
-    }
-
-    @GetMapping("/listadoProductosMuebles")
-    public String verProductosMuebles (Model model) {
-
-        List<Producto> productoList = buscarProductosFiltro("MUEBLES");
-
-        if(productoList.isEmpty()){
-            model.addAttribute("mensaje", "No hay productos");
-        }
-
-        model.addAttribute("productosMuebles", productoList);
-        return "/listadoProductosMuebles";
-    }
-
     private List<Producto> buscarProductosFiltro(String categoria) {
 
         List<Producto> aux = productoRepository.findAll();
         List<Producto> productoList = new ArrayList<>();
         boolean anadir = false;
 
-        for(Producto p:aux){
-            for(ProductoaCategoria c:p.getCategorias()){
-                if(c.getCategoria().getNombre().equals(categoria)){
-                    anadir = true;
-                    break;
+        if(categoria.equals("TODO")){
+            productoList = aux;
+        }else{
+
+            for(Producto p:aux){
+                for(ProductoaCategoria c:p.getCategorias()){
+                    if(c.getCategoria().getNombre().equals(categoria)){
+                        anadir = true;
+                        break;
+                    }
                 }
-            }
-            if(anadir){
-                productoList.add(p);
-                anadir = false;
+                if(anadir){
+                    productoList.add(p);
+                    anadir = false;
+                }
             }
         }
 
