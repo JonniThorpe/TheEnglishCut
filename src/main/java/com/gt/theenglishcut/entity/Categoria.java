@@ -39,6 +39,5 @@ public class Categoria {
         this.productos = productos;
     }
 
-    // getters and setters
 }
 

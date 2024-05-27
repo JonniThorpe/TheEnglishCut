@@ -48,7 +48,7 @@ donde aparezca ese mismo producto y el numero de veces que aparece en el carrito
                     <td><img src="../../img/<%=producto.getImagen()%>" width="64" height="64"></td>
                     <td><%=producto.getNombre()%></td>
                     <td><%=producto.getPrecio()%>€</td>
-                    <td><%=num_productos%>uds</td>
+                    <td><%=num_productos%> uds</td>
                     <td><%=precio_total%></td>
                 </tr>
                 <%total = total+precio_total;}%>

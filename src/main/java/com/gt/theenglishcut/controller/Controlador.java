@@ -32,6 +32,7 @@ public class Controlador {
 
     private Pedido pedidoCliente = new Pedido();
 
+    private String categoriaGlobal;
 
     Map<Producto,Integer> productosCarrito= new Hashtable<>();
 
@@ -50,6 +51,9 @@ public class Controlador {
         Usuario usuario = usuarioRepository.findByNombreUser(user);
         sesion.setAttribute("user",usuario.getNombre());
         sesion.setAttribute("tipo",usuario.getRol().getNombre());
+
+        categoriaGlobal = "TODO";
+
         return "redirect:/";
     }
 
@@ -82,6 +86,7 @@ public class Controlador {
 
         List<Producto> aux = productoRepository.findAll();
         List<Producto> productoList = new ArrayList<>();
+        categoriaGlobal= categoria;
         boolean anadir = false;
 
         if(categoria.equals("TODO")){
@@ -139,7 +144,7 @@ public class Controlador {
         productoNuevo.setPrecio(producto.getPrecio());
 
         productoRepository.save(productoNuevo);
-        return "redirect:/listadoProductos";
+        return "redirect:/listadoProductos?Categoria="+categoriaGlobal;
     }
 
     @GetMapping("/eliminarProducto")
@@ -147,11 +152,11 @@ public class Controlador {
         Producto producto = productoRepository.findById(id).orElse(null);
         if(producto == null){
             System.out.println("ningun producto eliminado, no deberia ser null el producto");
-            return "redirect:/listadoProductos";
+            return "redirect:/listadoProductos?Categoria="+categoriaGlobal;
         }
         productoRepository.deleteById(id);
         inventarioRepository.deleteById(producto.getInventario().getID());
-        return "redirect:/listadoProductos";
+        return "redirect:/listadoProductos?Categoria="+categoriaGlobal;
     }
 
     //hacer el añadir pedido
@@ -169,7 +174,7 @@ public class Controlador {
         if(!existe){
             productosCarrito.put(producto_meter,1);
         }
-        return "redirect:/listadoProductos";
+        return "redirect:/listadoProductos?Categoria="+categoriaGlobal;
     }
 
     @GetMapping("/confirmarPedidoCliente")
@@ -226,6 +231,6 @@ public class Controlador {
 
         pedidoCliente = new Pedido();
 
-        return "redirect:/listadoProductos";
+        return "redirect:/listadoProductos?Categoria="+categoriaGlobal;
     }
 }
