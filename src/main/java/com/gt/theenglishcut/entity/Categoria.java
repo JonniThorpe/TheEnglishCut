@@ -1,6 +1,7 @@
 package com.gt.theenglishcut.entity;
 
 import jakarta.persistence.*;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 

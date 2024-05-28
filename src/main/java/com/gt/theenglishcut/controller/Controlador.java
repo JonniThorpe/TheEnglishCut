@@ -30,6 +30,9 @@ public class Controlador {
     @Autowired
     private InventarioRepository inventarioRepository;
 
+    @Autowired
+    private CategoriaRepository categoriaRepository;
+
     private Pedido pedidoCliente = new Pedido();
 
     private String categoriaGlobal;
@@ -62,7 +65,15 @@ public class Controlador {
      * @return home.jsp
      */
     @GetMapping("/")
-    public String doInicio () {
+    public String doInicio (HttpSession sesion) {
+        List<Categoria> categoriaList = categoriaRepository.findAll();
+        List<String> lista = new ArrayList<>();
+
+        for(Categoria categoria:categoriaList){
+            lista.add(categoria.getNombre());
+        }
+
+        sesion.setAttribute("listaCategoriasNombres", lista);
         return "/home";
     }
 
@@ -108,6 +119,22 @@ public class Controlador {
         }
 
         return productoList;
+    }
+
+    @GetMapping("/Navbar")
+    public String verCategorias (Model model) {
+
+        List<Categoria> categoriaList = categoriaRepository.findAll();
+        List<String> lista = new ArrayList<>();
+
+        for(Categoria categoria:categoriaList){
+            lista.add(categoria.getNombre());
+        }
+
+        System.out.println("hola: "+lista);
+
+        model.addAttribute("listaCategoriasNombres", lista);
+        return "/Navbar";
     }
 
     @GetMapping("/listarPedidos")
