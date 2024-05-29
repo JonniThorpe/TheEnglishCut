@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class=" mt-2 d-flex justify-content-center" >
-    <form action="/loginUser" method="post">
+    <form action="/registerUser" method="post">
         <h1>The English Cut</h1>
         <div class="grid gap-3">
             <div class="p-2 g-col-6">

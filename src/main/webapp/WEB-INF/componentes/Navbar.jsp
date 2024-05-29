@@ -62,7 +62,16 @@
                         <div class="text-white"><%=tipo%></div>
                     </div>
                     <div class="col">
-                        <a class="btn btn-outline-success" href="/login" >Login</a>
+                        <div class="container mt-3">
+                            <div class="col">
+                                <div class="row">
+                                    <a class="btn btn-outline-success" href="/login" >Login</a>
+                                </div>
+                                <div class="row">
+                                    <a class="btn btn-outline-success" href="/register" >Register</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

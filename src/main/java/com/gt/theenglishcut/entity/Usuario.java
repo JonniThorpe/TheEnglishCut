@@ -10,6 +10,8 @@ public class Usuario {
 
     private String nombre;
 
+    private String password;
+
     @ManyToOne
     @JoinColumn(name = "Rol")
     private Rol rol;
@@ -37,5 +39,9 @@ public class Usuario {
     public void setRol(Rol rol) {
         this.rol = rol;
     }
+
+    public String getPassword(){ return password; }
+    public void setPassword(String password){ this.password = password; }
+
 }
 

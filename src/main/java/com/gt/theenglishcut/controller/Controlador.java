@@ -49,15 +49,59 @@ public class Controlador {
     }
 
     @PostMapping("/loginUser")
-    public String login(@RequestParam(value = "nombre",required = false)String user, HttpSession sesion){
+    public String login(@RequestParam(value = "nombre",required = false)String user, @RequestParam(value = "password",required = false)String password, HttpSession sesion){
 
         Usuario usuario = usuarioRepository.findByNombreUser(user);
+
+        if(user == null){
+            sesion.setAttribute("error","no existe ese usuario, prueba a registrarte antes de hacer login");
+            return "/error";
+        }else if(password == null || !password.equals(usuario.getPassword())){
+            sesion.setAttribute("error","la contraseña no coincide, prueba a prueba otra contraseña para hacer login hacer login");
+            return "/error";
+        }
+
         sesion.setAttribute("user",usuario.getNombre());
         sesion.setAttribute("tipo",usuario.getRol().getNombre());
 
         categoriaGlobal = "TODO";
 
         return "redirect:/";
+    }
+
+    @GetMapping("/register")
+    public String doRegister () {
+        return "/register";
+    }
+
+    @PostMapping("/registerUser")
+    public String register(@RequestParam(value = "nombre",required = false)String user, @RequestParam(value = "password",required = false)String password, HttpSession sesion){
+
+        Usuario usuario = usuarioRepository.findByNombreUser(user);
+
+        if(usuario != null){
+            sesion.setAttribute("error","ya existe ese usuario, prueba a registrarte con otro nombre de usuario");
+            return "/error";
+        }
+
+        Usuario pedro = usuarioRepository.findByNombreUser("Pedro");
+
+        usuario = new Usuario();
+        Rol rol = pedro.getRol();
+
+        usuario.setNombre(user);
+        usuario.setPassword(password);
+        usuario.setRol(rol);
+        usuarioRepository.save(usuario);
+
+        categoriaGlobal = "TODO";
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/error")
+    public String doError () {
+        return "/error";
     }
 
     /**
