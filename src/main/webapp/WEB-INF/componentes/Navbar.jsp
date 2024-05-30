@@ -67,9 +67,11 @@
                                 <div class="row">
                                     <a class="btn btn-outline-success" href="/login" >Login</a>
                                 </div>
+                                <%if(usuario.isEmpty() || tipo.equals("Administrador")){%>
                                 <div class="row">
                                     <a class="btn btn-outline-success" href="/register" >Register</a>
                                 </div>
+                                <%}%>
                             </div>
                         </div>
                     </div>

@@ -33,6 +33,9 @@ public class Controlador {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
+    @Autowired
+    private RolRepository rolRepository;
+
     private Pedido pedidoCliente = new Pedido();
 
     private String categoriaGlobal;
@@ -49,16 +52,16 @@ public class Controlador {
     }
 
     @PostMapping("/loginUser")
-    public String login(@RequestParam(value = "nombre",required = false)String user, @RequestParam(value = "password",required = false)String password, HttpSession sesion){
+    public String login(Model modelo,@RequestParam(value = "nombre",required = false)String user, @RequestParam(value = "password",required = false)String password, HttpSession sesion){
 
         Usuario usuario = usuarioRepository.findByNombreUser(user);
 
         if(user == null){
-            sesion.setAttribute("error","no existe ese usuario, prueba a registrarte antes de hacer login");
-            return "/error";
+            modelo.addAttribute("error","no existe ese usuario, prueba a registrarte antes de hacer login");
+            return "/error?tipo=login";
         }else if(password == null || !password.equals(usuario.getPassword())){
-            sesion.setAttribute("error","la contraseña no coincide, prueba a prueba otra contraseña para hacer login hacer login");
-            return "/error";
+            modelo.addAttribute("error","la contraseña no coincide, prueba a prueba otra contraseña para hacer login hacer login");
+            return "/error?tipo=login";
         }
 
         sesion.setAttribute("user",usuario.getNombre());
@@ -70,29 +73,38 @@ public class Controlador {
     }
 
     @GetMapping("/register")
-    public String doRegister () {
+    public String doRegister (HttpSession sesion, Model modelo  ) {
+
+        String user = (String) sesion.getAttribute("user");
+        Usuario usuario = usuarioRepository.findByNombreUser(user);
+
+        if(usuario != null && usuario.getRol().getNombre().equals("Administrador")){
+            modelo.addAttribute("roles", rolRepository.findAll());
+        }
         return "/register";
     }
 
     @PostMapping("/registerUser")
-    public String register(@RequestParam(value = "nombre",required = false)String user, @RequestParam(value = "password",required = false)String password, HttpSession sesion){
+    public String register(HttpSession sesion, Model modelo, @RequestParam(value = "nombre",required = false)String user, @RequestParam(value = "password",required = false)String password, @RequestParam(value="rolId")Integer rolId){
 
         Usuario usuario = usuarioRepository.findByNombreUser(user);
 
         if(usuario != null){
-            sesion.setAttribute("error","ya existe ese usuario, prueba a registrarte con otro nombre de usuario");
-            return "/error";
+            modelo.addAttribute("error","ya existe ese usuario, prueba a registrarte con otro nombre de usuario");
+            return "redirect:/error?tipo="+"registro";
         }
 
-        Usuario pedro = usuarioRepository.findByNombreUser("Pedro");
-
         usuario = new Usuario();
-        Rol rol = pedro.getRol();
 
         usuario.setNombre(user);
         usuario.setPassword(password);
-        usuario.setRol(rol);
+
+        usuario.setRol(rolRepository.findById(rolId).get());
         usuarioRepository.save(usuario);
+
+        //designamoos como el nuevo usuario en uso para la web
+        sesion.setAttribute("user",usuario.getNombre());
+        sesion.setAttribute("tipo",usuario.getRol().getNombre());
 
         categoriaGlobal = "TODO";
 
@@ -100,7 +112,8 @@ public class Controlador {
     }
 
     @GetMapping("/error")
-    public String doError () {
+    public String doError (@RequestParam("tipo")String tipo, Model modelo) {
+        modelo.addAttribute("tipo",tipo);
         return "/error";
     }
 
@@ -175,7 +188,6 @@ public class Controlador {
             lista.add(categoria.getNombre());
         }
 
-        System.out.println("hola: "+lista);
 
         model.addAttribute("listaCategoriasNombres", lista);
         return "/Navbar";
@@ -254,7 +266,6 @@ public class Controlador {
         return "/Carrito";
     }
 
-    //TODO NO ENTRA POR EL METODO ENTONCES NO ASIGNA EL PEDIDO A CLIENTE NI A PRODUCTO
     @PostMapping("/confirmarPedido")
     public String confirmar_Producto_a_Pedido (HttpSession sesion) {
 

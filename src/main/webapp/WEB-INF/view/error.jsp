@@ -1,6 +1,7 @@
 
 <%
     String error = (String) request.getAttribute("error");
+    String tipo = (String) request.getAttribute("tipo");
 %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -21,11 +22,16 @@
         <h4 class="alert-heading">Error!</h4>
         <%if(error == null){%>
             <p>Ha ocurrido un error en uno de los eventos. Por favor, intentalo de nuevo mas tarde.</p>
+            <p class="mb-0">Si el problema persiste, contacta con el soporte tecnico.</p>
         <%}else {%>
-            <p><%=error%></p>
+            <p class="border-1 p-3"><%=error%></p>
         <%}%>
         <hr>
-        <p class="mb-0">Si el problema persiste, contacta con el soporte tecnico.</p>
+        <%if(tipo.equals("login")){%>
+        <a href="login" class="btn btn-danger">intentar de nuevo</a>
+        <%}else{%>
+        <a href="registro" class="btn btn-danger">intentar de nuevo</a>
+        <%}%>
     </div>
 </div>
 </body>
