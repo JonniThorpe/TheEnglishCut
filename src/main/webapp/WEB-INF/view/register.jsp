@@ -31,7 +31,7 @@
                 </div>
             </div>
         </div>
-        <a href="home.jsp" class="btn btn-primary">Volver</a>
+        <a href="/" class="btn btn-primary">Volver</a>
     </form>
     <br/>
 </div>

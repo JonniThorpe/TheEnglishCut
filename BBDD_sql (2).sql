@@ -266,6 +266,7 @@ CREATE TABLE `usuario` (
                            `ID` int NOT NULL AUTO_INCREMENT,
                            `nombre` varchar(45) DEFAULT NULL,
                            `Rol` int NOT NULL,
+                           `password` varchar(45) DEFAULT NULL
                            PRIMARY KEY (`ID`),
                            KEY `fk_Usuario_Rol1_idx` (`Rol`),
                            CONSTRAINT `fk_Usuario_Rol1` FOREIGN KEY (`Rol`) REFERENCES `rol` (`ID`)
@@ -278,7 +279,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Antonio',1),(2,'Pedro',2),(3,'Juan',3);
+INSERT INTO `usuario` VALUES (1,'Antonio',1,'123456'),(2,'Pedro',2,'123456'),(3,'Juan',3,'123456');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
