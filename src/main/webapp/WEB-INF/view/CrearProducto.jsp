@@ -47,7 +47,7 @@
         <div class="input-group flex-nowrap mb-3">
             <button type="submit" class="btn btn-primary ">Enviar</button>
         </div>
-        <a href="home.jsp" class="btn btn-primary ">Volver</a>
+        <a href="/" class="btn btn-primary ">Volver</a>
     </form:form>
 </div>
 </body>

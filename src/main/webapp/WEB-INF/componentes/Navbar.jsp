@@ -39,9 +39,11 @@
                         Catálogo
                     </a>
                     <ul class="dropdown-menu">
-                        <%for(String categoria:listCategoria){%>
-                            <li><a class="dropdown-item" href="/listadoProductos?Categoria=<%=categoria%>"> <%=categoria%> </a></li>
-                            <li><hr class="dropdown-divider"></li>
+                        <%if(listCategoria != null){ %>
+                            <%for(String categoria:listCategoria){%>
+                                <li><a class="dropdown-item" href="/listadoProductos?Categoria=<%=categoria%>"> <%=categoria%> </a></li>
+                                <li><hr class="dropdown-divider"></li>
+                            <%}%>
                         <%}%>
                     </ul>
                 </li>

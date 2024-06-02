@@ -21,15 +21,13 @@
 <body>
 
 <div class=" mt-2 d-flex justify-content-center" >
-    <h1>The English Cut</h1>
-    <h2>Registro de usuario</h2>
     <form action="/registerUser" method="post">
+        <h1>The English Cut Registro de usuario</h1>
         <div class="grid gap-3">
             <div class="p-2 g-col-6">
                 <div class="input-group flex-nowrap">
                     <span class="input-group-text" id="addon-wrapping-1">User</span>
                     <input name="nombre" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping"/>
-
                 </div>
             </div>
             <div class="p-2 g-col-6">

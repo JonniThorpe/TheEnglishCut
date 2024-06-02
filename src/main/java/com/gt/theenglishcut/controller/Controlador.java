@@ -91,7 +91,7 @@ public class Controlador {
 
         if(usuario != null){
             modelo.addAttribute("error","ya existe ese usuario, prueba a registrarte con otro nombre de usuario");
-            return "redirect:/error?tipo="+"registro";
+            return "redirect:/error?tipo=register";
         }
 
         usuario = new Usuario();

@@ -16,7 +16,6 @@
                 <div class="input-group flex-nowrap">
                     <span class="input-group-text" id="addon-wrapping-1">User</span>
                     <input name="nombre" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping"/>
-
                 </div>
             </div>
             <div class="p-2 g-col-6">

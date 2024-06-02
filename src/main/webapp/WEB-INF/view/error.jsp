@@ -2,6 +2,9 @@
 <%
     String error = (String) request.getAttribute("error");
     String tipo = (String) request.getAttribute("tipo");
+    if(tipo == null){
+        tipo = "unkown";
+    }
 %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -24,13 +27,13 @@
             <p>Ha ocurrido un error en uno de los eventos. Por favor, intentalo de nuevo mas tarde.</p>
             <p class="mb-0">Si el problema persiste, contacta con el soporte tecnico.</p>
         <%}else {%>
-            <p class="border-1 p-3"><%=error%></p>
+            <p class="border-1 p-3"><%=error%> <%=tipo%> :(</p>
         <%}%>
         <hr>
         <%if(tipo.equals("login")){%>
-        <a href="login" class="btn btn-danger">intentar de nuevo</a>
-        <%}else{%>
-        <a href="registro" class="btn btn-danger">intentar de nuevo</a>
+            <a href="/login" class="btn btn-danger">intentar de nuevo</a>
+        <%}else if (tipo.equals("register")){%>
+            <a href="/register" class="btn btn-danger">intentar de nuevo</a>
         <%}%>
     </div>
 </div>

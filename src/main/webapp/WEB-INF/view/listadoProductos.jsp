@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <%} else if (tipo.equals("Usuario") && !usuario.isEmpty()) {%>
+        <%} else if (tipo.equals("Usuario")) {%>
         <div>
             <p>
                 <br/><b>pulse el boton asignar producto y luego en el icono carrito podra realizar su pedido.

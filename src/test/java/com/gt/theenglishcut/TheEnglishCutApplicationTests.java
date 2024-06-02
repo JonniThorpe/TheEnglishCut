@@ -9,5 +9,4 @@ class TheEnglishCutApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
