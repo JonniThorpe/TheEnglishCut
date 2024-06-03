@@ -27,7 +27,7 @@
                     <a class="nav-link active" aria-current="page" href="/" >Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/listadoProductos?Categoria=TODO" >Productos</a>
+                    <a name="Productos" class="nav-link" href="/listadoProductos?Categoria=TODO" >Productos</a>
                 </li>
                 <%if(tipo.equals("Administrador")){%>
                 <li class="nav-item">
@@ -60,14 +60,14 @@
                     </div>
                     <div class="col">
                         <img src="../../iconos/usuario.png"/>
-                        <div class="text-white"><%=usuario%></div>
-                        <div class="text-white"><%=tipo%></div>
+                        <div name="user" class="text-white"><%=usuario%></div>
+                        <div name="tipo" class="text-white"><%=tipo%></div>
                     </div>
                     <div class="col">
                         <div class="container mt-3">
                             <div class="col">
                                 <div class="row">
-                                    <a class="btn btn-outline-success" href="/login" >Login</a>
+                                    <a name="login" class="btn btn-outline-success" href="/login" >Login</a>
                                 </div>
                                 <%if(usuario.isEmpty() || tipo.equals("Administrador")){%>
                                 <div class="row">

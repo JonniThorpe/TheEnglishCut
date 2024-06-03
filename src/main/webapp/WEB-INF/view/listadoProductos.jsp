@@ -46,7 +46,7 @@
         <%}%>
         <%if(tipo.equals("Administrador")){%>
         <div>
-            <a class="btn btn-primary" href="/CrearProducto">crear Producto</a>
+            <a name="crearProducto" class="btn btn-primary" href="/CrearProducto">crear Producto</a>
         </div>
         <%}%>
     </div>
