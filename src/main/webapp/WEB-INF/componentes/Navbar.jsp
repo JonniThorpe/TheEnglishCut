@@ -29,7 +29,7 @@
                 <li class="nav-item">
                     <a name="Productos" class="nav-link" href="/listadoProductos?Categoria=TODO" >Productos</a>
                 </li>
-                <%if(tipo.equals("Administrador")){%>
+                <%if(!usuario.isEmpty()){%>
                 <li class="nav-item">
                     <a class="nav-link" href="/listarPedidos" >Pedidos</a>
                 </li>

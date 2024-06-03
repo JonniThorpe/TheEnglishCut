@@ -68,6 +68,7 @@ public class Controlador {
         sesion.setAttribute("tipo",usuario.getRol().getNombre());
 
         categoriaGlobal = "TODO";
+        productosCarrito.clear();
 
         return "redirect:/";
     }
@@ -107,6 +108,7 @@ public class Controlador {
         sesion.setAttribute("tipo",usuario.getRol().getNombre());
 
         categoriaGlobal = "TODO";
+        productosCarrito.clear();
 
         return "redirect:/";
     }
@@ -205,8 +207,18 @@ public class Controlador {
     }
 
     @GetMapping("/listarPedidos")
-    public String listar_Pedidos(Model model) {
-        List<Pedido> pedidoList = pedidoRepository.findAll();
+    public String listar_Pedidos(Model model, HttpSession sesion) {
+        String user = (String) sesion.getAttribute("user");
+        Usuario usuario = usuarioRepository.findByNombreUser(user);
+
+        List<Pedido> pedidoList;
+
+        if(usuario.getRol().getNombre().equals("Administrador")){
+            pedidoList = pedidoRepository.findAll();
+        }else {
+            pedidoList = pedidoRepository.findPedidoByUser(usuario.getID());
+        }
+
         if(pedidoList == null || pedidoList.isEmpty()){
             model.addAttribute("mensaje", "No hay pedidos");
         }
