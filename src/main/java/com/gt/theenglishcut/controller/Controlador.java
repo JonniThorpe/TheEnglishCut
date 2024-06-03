@@ -42,6 +42,10 @@ public class Controlador {
 
     Map<Producto,Integer> productosCarrito= new Hashtable<>();
 
+    private List<Pedido> pedidoList;
+
+    private Boolean filtro = true;
+
     /**
      * Devuelve la pagina login para acceder con un usuario
      * @return login.jsp
@@ -210,12 +214,11 @@ public class Controlador {
     public String listar_Pedidos(Model model, HttpSession sesion) {
         String user = (String) sesion.getAttribute("user");
         Usuario usuario = usuarioRepository.findByNombreUser(user);
+        List<Usuario> usuarioList = usuarioRepository.findAll();
 
-        List<Pedido> pedidoList;
-
-        if(usuario.getRol().getNombre().equals("Administrador")){
+        if(usuario.getRol().getNombre().equals("Administrador") && filtro){
             pedidoList = pedidoRepository.findAll();
-        }else {
+        }else if(usuario.getRol().getNombre().equals("Usuario") || usuario.getRol().getNombre().equals("Empleado")){
             pedidoList = pedidoRepository.findPedidoByUser(usuario.getID());
         }
 
@@ -223,10 +226,22 @@ public class Controlador {
             model.addAttribute("mensaje", "No hay pedidos");
         }
         model.addAttribute("pedidos", pedidoList);
+        model.addAttribute("usuarios", usuarioList);
+        model.addAttribute("tipoUsuario", usuario.getRol().getNombre());
 
         return "/ListadoPedidos";
     }
 
+    @PostMapping("/filtrar")
+    public String filtrarPedidos(Model model, @RequestParam("idUsuario")Integer idUsuario){
+        if(idUsuario != 0){
+            filtro = false;
+            pedidoList = pedidoRepository.findPedidoByUser(idUsuario);
+        }else{
+            filtro=true;
+        }
+        return "redirect:/listarPedidos";
+    }
 
     @GetMapping("/CrearProducto")
     public String crearProducto (Model modelo) {

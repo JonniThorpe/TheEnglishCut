@@ -51,11 +51,6 @@
         <%}%>
     </div>
     <%if(!productos.isEmpty()){%>
-    <!--
-    El siguiente codigo genera el listado de productos segun el tamaño del bucle
-    TODO en lugar de un numero, debe ser numero de productos en la bbdd
-    TODO el maximo por fila debe ser 5 productos despues salta a la siguiente  fila
-    -->
     <div class="container text-center">
         <div class="row row-cols-3">
             <% for (Producto producto : productos) {%>

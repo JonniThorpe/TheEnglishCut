@@ -1,6 +1,7 @@
 <%@ page import="com.gt.theenglishcut.entity.Pedido" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.gt.theenglishcut.entity.ProductoaPedido" %><%--
+<%@ page import="com.gt.theenglishcut.entity.ProductoaPedido" %>
+<%@ page import="com.gt.theenglishcut.entity.Usuario" %><%--
   Created by IntelliJ IDEA.
   User: Jonni
   Date: 21/05/2024
@@ -11,7 +12,12 @@
 <%
 
     List<Pedido> pedidos = (List<Pedido>) request.getAttribute("pedidos");
+    List<Usuario> usuarios = (List<Usuario>) request.getAttribute("usuarios");
     String mensaje = (String) request.getAttribute("mensaje");
+
+    String tipoUsuario = (String)request.getAttribute("tipoUsuario");
+
+
 %>
 
 <html>
@@ -20,8 +26,23 @@
 </head>
 <body>
 <%@ include file = "../componentes/Navbar.jsp" %>
+<%if(tipoUsuario.equals("Administrador")){%>
+<div>
+    <form action="/filtrar" method="post" >
+        <label for="clientes">Nombre del cliente</label>
+        <select id="clientes" name="idUsuario">
+            <option value="0"></option>
+            <%for(Usuario userioFiltro:usuarios){%>
+                <option value="<%=userioFiltro.getID()%>"><%=userioFiltro.getNombre()%></option>
+            <%}%>
+        </select>
+        <button type="submit" class="btn btn-primary">enviar</button>
+    </form>
+</div>
+<%}%>
 <%if(!pedidos.isEmpty()){%>
     <div class="container">
+
         <table class="table">
                 <tr>
                     <th class="col">Id</th>

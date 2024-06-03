@@ -22,7 +22,7 @@ public class Producto {
     @JoinColumn(name = "Inventario")
     private Inventario inventario;
 
-    @OneToMany(mappedBy = "producto")
+    @OneToMany(mappedBy = "producto",fetch = FetchType.EAGER)
     private List<ProductoaPedido> pedidos;
 
     @OneToMany(mappedBy = "producto")

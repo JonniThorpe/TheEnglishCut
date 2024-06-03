@@ -4,6 +4,7 @@ public class producto {
     private String nombre;
     private String descripcion;
     private Double precio;
+    private String categoria;
     private String imagen;
     private int cantidad;
 

@@ -20,7 +20,7 @@ public class Pedido {
     @JoinColumn(name = "usuario")
     private Usuario usuario;
 
-    @OneToMany(mappedBy = "pedido")
+    @OneToMany(mappedBy = "pedido",fetch = FetchType.EAGER)
     private List<ProductoaPedido> productos;
 
     public List<ProductoaPedido> getProductos() {
