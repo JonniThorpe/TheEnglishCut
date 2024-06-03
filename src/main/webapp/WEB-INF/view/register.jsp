@@ -17,12 +17,43 @@
 <html>
 <head>
     <title>Registrar nuevo usuarios</title>
+    <title>Login</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        body::before, body::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            z-index: -1;
+        }
+        body::before {
+            left: 0;
+            background-image: url('../../img/gobesponja.gif');
+        }
+        body::after {
+            right: 0;
+            background-image: url('../../img/gobesponja.gif');
+            transform: scaleX(-1); /* Voltea horizontalmente la segunda imagen */
+        }
+
+    </style>
 </head>
 <body>
 
 <div class=" mt-2 d-flex justify-content-center" >
     <form action="/registerUser" method="post">
-        <h1>The English Cut Registro de usuario</h1>
+        <h1>REGISTRO USUARIO</h1>
         <div class="grid gap-3">
             <div class="p-2 g-col-6">
                 <div class="input-group flex-nowrap">
