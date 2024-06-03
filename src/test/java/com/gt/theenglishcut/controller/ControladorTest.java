@@ -26,6 +26,7 @@ class ControladorTest {
     private Inventario inventario;
     private Categoria categoria;
     private ProductoaCategoria productoaCategoria;
+    
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -58,10 +59,20 @@ class ControladorTest {
     }
 
     @Test
-    void verCategorias() {
+    void categoriaRepositoryNotNULL() {
         when(categoriaRepository.findAll()).thenReturn(Collections.singletonList(categoria));
         assertNotNull(categoriaRepository.findAll());
+    }
+
+    @Test
+    void categoriaRepositorySize() {
+        when(categoriaRepository.findAll()).thenReturn(Collections.singletonList(categoria));
         assertEquals(categoriaRepository.findAll().size(), 1);
+    }
+
+    @Test
+    void categoriaRepositoryEqualsCategoria() {
+        when(categoriaRepository.findAll()).thenReturn(Collections.singletonList(categoria));
         assertEquals(categoriaRepository.findAll().get(0), categoria);
     }
 }
