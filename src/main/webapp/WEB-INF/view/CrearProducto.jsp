@@ -11,10 +11,11 @@
 <html>
 <head>
     <title></title>
+
 </head>
 <body>
 <%@ include file = "../componentes/Navbar.jsp" %>
-<h1>Crear producto</h1>
+<h1 align="center">CREAR PRODUCTO</h1>
 <div class="container-sm">
     <form:form action="/guardarProducto" method="post" modelAttribute="producto">
         <div class="mb-3">
@@ -41,11 +42,11 @@
             </form:select>
         </div>
         <div class="form-group mb-3">
-            <label >imagen</label>
+            <label >Imagen</label>
             <form:input path="imagen" type="text" class="form-control" />
         </div>
         <div class="input-group flex-nowrap mb-3">
-            <button type="submit" class="btn btn-primary ">Enviar</button>
+            <button type="submit" class="btn btn-primary" >Enviar</button>
         </div>
         <a href="/" class="btn btn-primary ">Volver</a>
     </form:form>
