@@ -121,7 +121,10 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (2,'Caja de gambas','Gambas: Son pequeños crustáceos marinos que se encuentran en aguas cálidas y también en las frías de todo el mundo. Las gambas son de color gris verdoso y se vuelven rosa/salmón cuando se cocinan.',143,'cajagambas.jpeg',1),(3,'Jamon de jabugo','El jamón ibérico DOP Jabugo es un producto de alta calidad y sabor inigualable. La Denominación de Origen Protegida garantiza que el jamón cumple con los estándares de calidad más exigentes y que ha sido elaborado en la zona de Jabugo',143,'patanegra.jpg',1),(5,'Jamon de jabugo','aaaaaaaaaaaaaaaaaaaaaa',143,'patanegra.jpg',1);
+INSERT INTO `producto` VALUES (2,'Caja de gambas','Gambas: Son pequeños crustáceos marinos que se encuentran en aguas cálidas y también en las frías de todo el mundo. Las gambas son de color gris verdoso y se vuelven rosa/salmón cuando se cocinan.',143,'cajagambas.jpeg',100)
+                            ,(3,'Jamon de jabugo','El jamón ibérico DOP Jabugo es un producto de alta calidad y sabor inigualable. La Denominación de Origen Protegida garantiza que el jamón cumple con los estándares de calidad más exigentes y que ha sido elaborado en la zona de Jabugo',143,'patanegra.jpg',100),
+                             (7,'Kebab','Este sabroso kebab cocinado en un increible local con las medidas sanitarias minimas te teletransportara al lugar mas feliz que conozcas mientras degustas su ternera, pollo, lechuga,tomate, salsa de yogurt, pan de pita y el secreto de la casa',10,'kebab.jpg',100),
+                              (8,'Croquetas de cocreta','Quien no ha probado una deliciosa croqueta(cocreta) de pollo o tal vez de puchero. Aqui presentamos la croqueta de cocreta, un experimento que desafia todas leyes naturales, creando un producto autosuficiente e infinito, ya que solo hace falta una croqueta base para dar lugar a la croqueta de cocreta',1,'croqueta.jpg',1);
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
