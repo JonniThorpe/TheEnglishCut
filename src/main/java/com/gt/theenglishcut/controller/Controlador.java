@@ -111,6 +111,17 @@ public class Controlador {
         return "redirect:/";
     }
 
+    @GetMapping("/logout")
+    public String logout (HttpSession sesion) {
+
+        sesion.setAttribute("user",null);
+        sesion.setAttribute("tipo",null);
+
+        categoriaGlobal = "TODO";
+
+        return "redirect:/";
+    }
+
     @GetMapping("/error")
     public String doError (@RequestParam("tipo")String tipo, Model modelo) {
         modelo.addAttribute("tipo",tipo);

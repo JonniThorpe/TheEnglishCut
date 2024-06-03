@@ -73,6 +73,10 @@
                                 <div class="row">
                                     <a class="btn btn-outline-success" href="/register" >Register</a>
                                 </div>
+                                <%}else {%>
+                                <div class="row">
+                                    <a class="btn btn-outline-success" href="/logout">logout</a>
+                                </div>
                                 <%}%>
                             </div>
                         </div>
