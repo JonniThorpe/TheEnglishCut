@@ -23,7 +23,7 @@
 <div id="carouselExampleFade" class="carousel slide carousel-fade">
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="../../img/LogoProyecto.jpeg" class="d-block w-100" alt="..." style="height: 750px ; width: 500px">
+            <img src="../../img/LogoProyecto.jpeg" class="d-block w-100" alt="..." style="height: 750px ; width: 500px; position: relative">
         </div>
         <div class="carousel-item">
             <img src="../../img/modern-sale-banner-website-slider-template-design_54925-46.jpg" class="d-block w-100" alt="...">

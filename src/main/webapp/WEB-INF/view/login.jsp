@@ -5,12 +5,25 @@
 <%@ include file="../../bootstrap/css-js.jsp"%>
 <html>
 <head>
-    <title>Title</title>
+    <title>Login</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: auto;
+            background-image: url('../../img/compra.gif');
+            background-size: contain;
+            background-position: right center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+    </style>
 </head>
 <body>
 <div class=" mt-2 d-flex justify-content-center" >
     <form action="/loginUser" method="post">
-        <h1>The English Cut</h1>
+        <h1 align="center">THE ENGLISH CUT</h1>
         <div class="grid gap-3">
             <div class="p-2 g-col-6">
                 <div class="input-group flex-nowrap">
@@ -29,6 +42,7 @@
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </div>
             </div>
+
         </div>
         <a href="/" class="btn btn-primary">Volver</a>
     </form>
