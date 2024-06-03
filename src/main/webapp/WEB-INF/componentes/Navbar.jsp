@@ -59,9 +59,15 @@
                         </a>
                     </div>
                     <div class="col">
+                        <%if(usuario.equals("David")){%>
+                        <img src="../../img/INVESIL.png"/>
+                        <%}else{%>
                         <img src="../../iconos/usuario.png"/>
+                        <%}%>
                         <div name="user" class="text-white"><%=usuario%></div>
                         <div name="tipo" class="text-white"><%=tipo%></div>
+
+
                     </div>
                     <div class="col">
                         <div class="container mt-3">
