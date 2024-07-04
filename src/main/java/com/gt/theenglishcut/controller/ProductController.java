@@ -2,7 +2,6 @@ package com.gt.theenglishcut.controller;
 
 import com.gt.theenglishcut.dao.*;
 import com.gt.theenglishcut.entity.*;
-import com.gt.theenglishcut.ui.Usuario_provisioal;
 import com.gt.theenglishcut.ui.producto;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,18 +10,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
-public class Controlador {
+public class ProductController {
 
     @Autowired
     private ProductoRepository productoRepository;
-
-    @Autowired
-    private PedidoRepository pedidoRepository;
-
-    @Autowired
-    private PedidoAProductoRepository PedidoaProductoRepository;
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -34,17 +28,13 @@ public class Controlador {
     private CategoriaRepository categoriaRepository;
 
     @Autowired
-    private RolRepository rolRepository;
+    private ProductoACategoriaRepository productoACategoriaRepository;
 
-    private Pedido pedidoCliente = new Pedido();
+    @Autowired
+    private RolRepository rolRepository;
 
     private String categoriaGlobal;
 
-    Map<Producto,Integer> productosCarrito= new Hashtable<>();
-
-    private List<Pedido> pedidoList;
-
-    private Boolean filtro = true;
 
     /**
      * Devuelve la pagina login para acceder con un usuario
@@ -72,7 +62,8 @@ public class Controlador {
         sesion.setAttribute("tipo",usuario.getRol().getNombre());
 
         categoriaGlobal = "TODO";
-        productosCarrito.clear();
+        //TODO el carrito debe estar vacio cuanddo un nuevo usuario se logee
+        //productosCarrito.clear();
 
         return "redirect:/";
     }
@@ -112,7 +103,8 @@ public class Controlador {
         sesion.setAttribute("tipo",usuario.getRol().getNombre());
 
         categoriaGlobal = "TODO";
-        productosCarrito.clear();
+        //TODO el carrito debe estar vacio cuanddo un nuevo usuario se registre
+        //productosCarrito.clear();
 
         return "redirect:/";
     }
@@ -210,62 +202,40 @@ public class Controlador {
         return "/Navbar";
     }
 
-    @GetMapping("/listarPedidos")
-    public String listar_Pedidos(Model model, HttpSession sesion) {
-        String user = (String) sesion.getAttribute("user");
-        Usuario usuario = usuarioRepository.findByNombreUser(user);
-        List<Usuario> usuarioList = usuarioRepository.findAll();
+    @GetMapping("/Detail")
+    public String product_Detail(@RequestParam("id")Integer id, Model modelo){
+        Producto product = productoRepository.findById(id).get();
 
-        if(usuario.getRol().getNombre().equals("Administrador") && filtro){
-            pedidoList = pedidoRepository.findAll();
-        }else if(usuario.getRol().getNombre().equals("Usuario") || usuario.getRol().getNombre().equals("Empleado")){
-            pedidoList = pedidoRepository.findPedidoByUser(usuario.getID());
-        }
-
-        if(pedidoList == null || pedidoList.isEmpty()){
-            model.addAttribute("mensaje", "No hay pedidos");
-        }
-        model.addAttribute("pedidos", pedidoList);
-        model.addAttribute("usuarios", usuarioList);
-        model.addAttribute("tipoUsuario", usuario.getRol().getNombre());
-
-        return "/ListadoPedidos";
-    }
-
-    @PostMapping("/filtrar")
-    public String filtrarPedidos(Model model, @RequestParam("idUsuario")Integer idUsuario){
-        if(idUsuario != 0){
-            filtro = false;
-            pedidoList = pedidoRepository.findPedidoByUser(idUsuario);
-        }else{
-            filtro=true;
-        }
-        return "redirect:/listarPedidos";
+        modelo.addAttribute("product", product);
+        return "/ProductDetail";
     }
 
     @GetMapping("/CrearProducto")
     public String crearProducto (Model modelo) {
         modelo.addAttribute("producto",  new producto());
-        modelo.addAttribute("cantidadProducto",6);
+        modelo.addAttribute("categorias",categoriaRepository.findAll());
         return "/CrearProducto";
     }
 
-    @PostMapping("/guardarProducto")
-    public String guardarProducto (Model modelo, @ModelAttribute("producto")producto producto) {
-        Producto productoNuevo = new Producto();
-        Inventario inventario = new Inventario();
+    @GetMapping("/modificarProducto")
+    public String modificarProducto (Model modelo, @RequestParam("id") Integer id) {
+        producto productoModificado = new producto();
+        Producto producto = productoRepository.findById(id).get();
 
-        inventario.setCantidad(producto.getCantidad());
-        inventarioRepository.save(inventario);
+        productoModificado.setIdProducto(id);
+        productoModificado.setNombre(producto.getNombre());
+        productoModificado.setDescripcion(producto.getDescripcion());
+        productoModificado.setPrecio(producto.getPrecio());
+        productoModificado.setImagen(producto.getImagen());
+        productoModificado.setCantidad(producto.getInventario().getCantidad());
+        productoModificado.setCategorias(producto.getCategorias().stream()
+                .map(ProductoaCategoria::getCategoria)
+                .map(Categoria::getID)
+                .collect(Collectors.toList()));
 
-        productoNuevo.setInventario(inventario);
-        productoNuevo.setNombre(producto.getNombre());
-        productoNuevo.setDescripcion(producto.getDescripcion());
-        productoNuevo.setImagen(producto.getImagen());
-        productoNuevo.setPrecio(producto.getPrecio());
-
-        productoRepository.save(productoNuevo);
-        return "redirect:/listadoProductos?Categoria="+categoriaGlobal;
+        modelo.addAttribute("categorias",categoriaRepository.findAll());
+        modelo.addAttribute("producto",  productoModificado);
+        return "/CrearProducto";
     }
 
     @GetMapping("/eliminarProducto")
@@ -275,82 +245,61 @@ public class Controlador {
             System.out.println("ningun producto eliminado, no deberia ser null el producto");
             return "redirect:/listadoProductos?Categoria="+categoriaGlobal;
         }
+        productoACategoriaRepository.deleteByProductID(id);
         productoRepository.deleteById(id);
         inventarioRepository.deleteById(producto.getInventario().getID());
         return "redirect:/listadoProductos?Categoria="+categoriaGlobal;
     }
 
-    //hacer el añadir pedido
-    @GetMapping("/addProducto")
-    public String addProducto (@RequestParam("id")int id) {
-        Producto producto_meter = productoRepository.findById(id).get();//Este va a ser el producto que vamos a meter
-        boolean existe=false;
-        for(Producto producto: productosCarrito.keySet()){
-            if(producto.getNombre().toLowerCase().equals(producto_meter.getNombre().toLowerCase())){
-                existe=true;
-                int unidades = productosCarrito.get(producto)+1;
-                productosCarrito.put(producto,unidades);
-            }
-        }
-        if(!existe){
-            productosCarrito.put(producto_meter,1);
+    @PostMapping("/guardarProducto")
+    public String guardarProducto (Model modelo, @ModelAttribute("producto")producto producto) {
+        Producto productoNuevo = new Producto();
+        Inventario inventario = new Inventario();
+
+        if(producto.getIdProducto() == null) {
+            inventario.setCantidad(producto.getCantidad());
+            inventarioRepository.save(inventario);
+            productoNuevo.setInventario(inventario);
+
+            GuardarObjetoProducto(producto, productoNuevo);
+        }else{
+            productoNuevo = productoRepository.findById(producto.getIdProducto()).orElse(null);
+
+            inventario = productoNuevo.getInventario();
+            inventario.setCantidad(producto.getCantidad());
+            inventarioRepository.save(inventario);
+
+            productoACategoriaRepository.deleteByProductID(producto.getIdProducto());
+            productoNuevo.getCategorias().clear();
+
+            GuardarObjetoProducto(producto, productoNuevo);
+
         }
         return "redirect:/listadoProductos?Categoria="+categoriaGlobal;
     }
 
-    @GetMapping("/confirmarPedidoCliente")
-    public String confirmarPedidoCliente (Model model) {
-        model.addAttribute("productosCarrito", productosCarrito);
-        return "/Carrito";
+    private void GuardarObjetoProducto(@ModelAttribute("producto") producto producto, Producto productoNuevo) {
+
+        productoNuevo.setNombre(producto.getNombre());
+        productoNuevo.setDescripcion(producto.getDescripcion());
+        productoNuevo.setImagen(producto.getImagen());
+        productoNuevo.setPrecio(producto.getPrecio());
+        productoRepository.save(productoNuevo);
+
+        List<ProductoaCategoria> categoriasProducto = new ArrayList<>();
+
+        for (Categoria c : categoriaRepository.findAllById(producto.getCategorias())) {
+            ProductoaCategoria pc = new ProductoaCategoria();
+
+            pc.setProducto(productoNuevo);
+            pc.setCategoria(c);
+
+            categoriasProducto.add(pc);
+
+            productoACategoriaRepository.save(pc);
+        }
+
+        productoNuevo.setCategorias(categoriasProducto);
     }
 
-    @PostMapping("/confirmarPedido")
-    public String confirmar_Producto_a_Pedido (HttpSession sesion) {
-
-        String user = (String) sesion.getAttribute("user");
-        if (user == null) {
-            // Manejar el caso en que el usuario no esté autenticado
-            return "redirect:/login"; // Redirigir a la página de inicio de sesión
-        }
-        Usuario clientePedido = usuarioRepository.findByNombreUser(user);
-
-
-        List<ProductoaPedido> productoaPedidoLista = new ArrayList<>();
-
-
-        //Creamos el pedido
-        pedidoCliente.setUsuario(clientePedido);
-        pedidoCliente.setFechaCreacion(new Date());
-        pedidoCliente.setEntrega("NO CONFIRMADO");
-        pedidoRepository.save(pedidoCliente);
-
-
-        for(Producto productoConfirmado:productosCarrito.keySet()){
-            ProductoaPedido productoaPedido = new ProductoaPedido();
-
-
-            productoaPedido.setProducto(productoConfirmado);
-            productoaPedido.setPedido(pedidoCliente);
-
-
-            PedidoaProductoRepository.save(productoaPedido);
-            productoaPedidoLista.add(productoaPedido);
-
-            productoConfirmado.setPedidos(productoaPedidoLista);
-            productoRepository.save(productoConfirmado);
-
-        }
-        pedidoCliente.setProductos(productoaPedidoLista);
-
-        pedidoRepository.save(pedidoCliente);
-
-
-
-        //Limpiamos el carrito para nuevos productos y nuevo pedido
-        productosCarrito.clear();
-
-        pedidoCliente = new Pedido();
-
-        return "redirect:/listadoProductos?Categoria="+categoriaGlobal;
-    }
 }

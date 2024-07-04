@@ -26,23 +26,22 @@
 </head>
 <body>
 <%@ include file = "../componentes/Navbar.jsp" %>
-<%if(tipoUsuario.equals("Administrador")){%>
-<div>
-    <form action="/filtrar" method="post" >
-        <label for="clientes">Nombre del cliente</label>
-        <select id="clientes" name="idUsuario">
-            <option value="0"></option>
-            <%for(Usuario userioFiltro:usuarios){%>
-                <option value="<%=userioFiltro.getID()%>"><%=userioFiltro.getNombre()%></option>
-            <%}%>
-        </select>
-        <button type="submit" class="btn btn-primary">enviar</button>
-    </form>
-</div>
-<%}%>
 <%if(!pedidos.isEmpty()){%>
-    <div class="container">
-
+    <div class="container mt-3">
+        <%if(tipoUsuario.equals("Administrador")){%>
+        <div>
+            <form action="Orders/filtrar" method="post" >
+                <label for="clientes">Nombre del cliente</label>
+                <select id="clientes" name="idUsuario">
+                    <option value="0"></option>
+                    <%for(Usuario userioFiltro:usuarios){%>
+                    <option value="<%=userioFiltro.getID()%>"><%=userioFiltro.getNombre()%></option>
+                    <%}%>
+                </select>
+                <button type="submit" class="btn btn-primary">enviar</button>
+            </form>
+        </div>
+        <%}%>
         <table class="table">
                 <tr>
                     <th class="col">Id</th>
@@ -59,7 +58,9 @@
                         <ul>
                             <%for(ProductoaPedido productoDePedido: pedido.getProductos()){%>
 
-                                <li><%=productoDePedido.getProducto().getNombre()%></li>
+                                <li>
+                                    <%=productoDePedido.getProducto().getNombre()%>,
+                                    <%=productoDePedido.getCantidad()%> Unds</li>
 
                             <%}%>
                         </ul>

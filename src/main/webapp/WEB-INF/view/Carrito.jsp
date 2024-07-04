@@ -24,7 +24,7 @@ donde aparezca ese mismo producto y el numero de veces que aparece en el carrito
 -->
 <body>
 <%@ include file = "../componentes/Navbar.jsp" %>
-    <form method="post" action="/confirmarPedido">
+    <form method="post" action="confirmarPedido">
 
         <div class="container-fluid">
             <table class="table">
@@ -39,8 +39,10 @@ donde aparezca ese mismo producto y el numero de veces que aparece en el carrito
 
                 double total = 0;
                 int num_productos;
-                    for(Producto producto: productosCarrito.keySet()){
-                        num_productos=productosCarrito.get(producto);
+                    for(Map.Entry<Producto, Integer> mapaProducto: productosCarrito.entrySet()){
+                        Producto producto = mapaProducto.getKey();
+                        num_productos= mapaProducto.getValue();
+
                 double precio = producto.getPrecio();
                 double precio_total=precio * num_productos;
                 %>
@@ -48,7 +50,20 @@ donde aparezca ese mismo producto y el numero de veces que aparece en el carrito
                     <td><img src="../../img/<%=producto.getImagen()%>" width="64" height="64"></td>
                     <td><%=producto.getNombre()%></td>
                     <td><%=producto.getPrecio()%>€</td>
-                    <td><%=num_productos%> uds</td>
+                    <td>
+                        <select name="cantidad" id="unidades">
+                            <%
+                                for (int i = 0; i <= num_productos; i++) {
+                                    String selected = "";
+                                    if(i == num_productos){
+                                        selected = "selected";
+                                    }
+                            %>
+                            <option value="<%=i%>" <%=selected%> ><%=i%></option>
+                            <%
+                                }%>
+                        </select>
+                        <label for="unidades">uds</label></td>
                     <td><%=precio_total%></td>
                 </tr>
                 <%total = total+precio_total;}%>

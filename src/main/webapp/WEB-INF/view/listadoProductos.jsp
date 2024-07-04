@@ -52,23 +52,29 @@
     </div>
     <%if(!productos.isEmpty()){%>
     <div class="container text-center">
-        <div class="row row-cols-3">
+        <div class="row row-cols-xxl-4">
             <% for (Producto producto : productos) {%>
-            <div class="col col-12 col-sm-8 col-md-6 col-lg mb-3">
+            <div class="col mt-4">
                 <div class="card " style="width: 18rem;">
-                    <img src="../../img/<%=producto.getImagen()%>" class="card-img-top" alt="...">
+                    <a href="/Detail?id=<%=producto.getID()%>">
+                        <img src="../../img/<%=producto.getImagen()%>" class="card-img-top" alt="...">
+                    </a>
                     <div class="card-body">
                         <h5 class="card-title"><%=producto.getNombre()%></h5>
-                        <p class="card-text"><%=producto.getDescripcion()%></p>
-                        <%if(!usuario.isEmpty() && !tipo.equals("Administrador")){%>
-                            <a href="/addProducto?id=<%=producto.getID()%>" class="btn btn-primary">Asignar producto al carrito</a>
+                        <%--<p class="card-text"><%=producto.getDescripcion()%></p>--%>
+                        <%if(!usuario.isEmpty() && !tipo.equals("Administrador") && producto.getInventario().getCantidad() > 0){%>
+                            <a href="Basket/addProducto?id=<%=producto.getID()%>" class="btn btn-primary">Asignar producto al carrito</a>
                         <%}%>
                         <div class="fw-bold">Cantidad disponible: <%=producto.getInventario().getCantidad()%></div>
                         <%if(tipo.equals("Administrador")){%>
                             <div>
                                 <a href="/eliminarProducto?id=<%=producto.getID()%>">eliminar Producto</a>
                             </div>
+                            <div>
+                                <a href="/modificarProducto?id=<%=producto.getID()%>">modificar Producto</a>
+                            </div>
                         <%}%>
+                        <a href="/Detail" class="btn btn-primary">Ver producto</a>
                     </div>
                 </div>
             </div>

@@ -31,7 +31,7 @@
                 </li>
                 <%if(!usuario.isEmpty()){%>
                 <li class="nav-item">
-                    <a class="nav-link" href="/listarPedidos" >Pedidos</a>
+                    <a class="nav-link" href="Orders/listarPedidos" >Pedidos</a>
                 </li>
                 <%}%>
                 <li class="nav-item dropdown">
@@ -54,7 +54,7 @@
             <div class="text-center">
                 <div class="row align-items-center">
                     <div class="col">
-                        <a class="align-middle" href="confirmarPedidoCliente">
+                        <a class="align-middle" href="Basket/confirmarPedidoCliente">
                             <img src="../../iconos/carros.png"/>
                         </a>
                     </div>

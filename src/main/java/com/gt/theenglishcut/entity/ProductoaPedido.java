@@ -16,6 +16,16 @@ public class ProductoaPedido {
     @JoinColumn(name = "Pedido")
     private Pedido pedido;
 
+    private Integer cantidad;
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
+
     public Integer getId() {
         return ID;
     }

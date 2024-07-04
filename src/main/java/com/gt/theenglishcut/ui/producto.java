@@ -1,12 +1,23 @@
 package com.gt.theenglishcut.ui;
 
+import java.util.List;
+
 public class producto {
+    private Integer idProducto;
     private String nombre;
     private String descripcion;
     private Double precio;
-    private String categoria;
+    private List<Integer> categorias;
     private String imagen;
     private int cantidad;
+
+    public Integer getIdProducto() {
+        return idProducto;
+    }
+
+    public void setIdProducto(Integer idProducto) {
+        this.idProducto = idProducto;
+    }
 
     public String getNombre() {
         return nombre;
@@ -43,8 +54,17 @@ public class producto {
     public int getCantidad() {
         return cantidad;
     }
+
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public List<Integer> getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(List<Integer> categorias) {
+        this.categorias = categorias;
     }
 
 }
