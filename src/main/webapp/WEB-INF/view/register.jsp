@@ -1,4 +1,4 @@
-<%@ page import="com.gt.theenglishcut.entity.Rol" %>
+<%@ page import="com.theenglishcut.entity.RolEntity" %>
 <%@ page import="java.util.List" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -11,12 +11,12 @@
     if(tipo == null){
         tipo = "Usuario";
     }
-    List<Rol> roles = (List<Rol>) request.getAttribute("roles");
+    List<RolEntity> roles = (List<RolEntity>) request.getAttribute("roles");
 %>
 
 <html>
 <head>
-    <title>Registrar nuevo usuarios</title>
+    <title>Registrar nuevo userEntities</title>
     <title>Login</title>
     <style>
         body {
@@ -68,7 +68,7 @@
                 </div>
             </div>
             <%if(tipo.equals("Administrador")){%>
-                <%for(Rol rol:roles){%>
+                <%for(RolEntity rol:roles){%>
                 <input name="rolId" type="radio" id="rol" value="<%=rol.getID()%>">
                 <label for="rol"><%=rol.getNombre()%></label>
                 <%}%>

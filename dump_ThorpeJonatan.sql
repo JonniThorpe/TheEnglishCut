@@ -77,11 +77,11 @@ CREATE TABLE IF NOT EXISTS `theenglishcut`.`Pedido` (
   `ID` INT NOT NULL AUTO_INCREMENT,
   `fechaCreacion` DATE NULL,
   `entrega` VARCHAR(45) NULL,
-  `usuario` INT NOT NULL,
+  `userEntity` INT NOT NULL,
   PRIMARY KEY (`ID`),
-  INDEX `fk_Pedido_Usuario1_idx` (`usuario` ASC) VISIBLE,
+  INDEX `fk_Pedido_Usuario1_idx` (`userEntity` ASC) VISIBLE,
   CONSTRAINT `fk_Pedido_Usuario1`
-    FOREIGN KEY (`usuario`)
+    FOREIGN KEY (`userEntity`)
     REFERENCES `theenglishcut`.`Usuario` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

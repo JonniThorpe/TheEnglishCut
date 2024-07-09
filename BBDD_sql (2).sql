@@ -16,18 +16,18 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `categoria`
+-- Table structure for table `categoryEntity`
 --
 
-LOCK TABLES `categoria` WRITE;
-/*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
-/*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
+LOCK TABLES `categoryEntity` WRITE;
+/*!40000 ALTER TABLE `categoryEntity` DISABLE KEYS */;
+/*!40000 ALTER TABLE `categoryEntity` ENABLE KEYS */;
 UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `categoria`;
+DROP TABLE IF EXISTS `categoryEntity`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `categoria` (
+CREATE TABLE `categoryEntity` (
                              `ID` int NOT NULL,
                              `Nombre` varchar(45) DEFAULT NULL,
                              PRIMARY KEY (`ID`)
@@ -35,19 +35,19 @@ CREATE TABLE `categoria` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `categoria`
+-- Dumping data for table `categoryEntity`
 --
 
 
 
 --
--- Table structure for table `inventario`
+-- Table structure for table `stockEntity`
 --
 
-DROP TABLE IF EXISTS `inventario`;
+DROP TABLE IF EXISTS `stockEntity`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `inventario` (
+CREATE TABLE `stockEntity` (
                               `ID` int NOT NULL AUTO_INCREMENT,
                               `cantidad` int NOT NULL,
                               PRIMARY KEY (`ID`)
@@ -55,50 +55,50 @@ CREATE TABLE `inventario` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `inventario`
+-- Dumping data for table `stockEntity`
 --
 
-LOCK TABLES `inventario` WRITE;
-/*!40000 ALTER TABLE `inventario` DISABLE KEYS */;
-/*!40000 ALTER TABLE `inventario` ENABLE KEYS */;
+LOCK TABLES `stockEntity` WRITE;
+/*!40000 ALTER TABLE `stockEntity` DISABLE KEYS */;
+/*!40000 ALTER TABLE `stockEntity` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `pedido`
+-- Table structure for table `orderEntity`
 --
 
-DROP TABLE IF EXISTS `pedido`;
+DROP TABLE IF EXISTS `orderEntity`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `pedido` (
+CREATE TABLE `orderEntity` (
                           `ID` int NOT NULL AUTO_INCREMENT,
                           `fechaCreacion` date DEFAULT NULL,
                           `entrega` varchar(45) DEFAULT NULL,
-                          `usuario` int NOT NULL,
+                          `userEntity` int NOT NULL,
                           `fecha_creacion` date DEFAULT NULL,
                           PRIMARY KEY (`ID`),
-                          KEY `fk_Pedido_Usuario1_idx` (`usuario`),
-                          CONSTRAINT `fk_Pedido_Usuario1` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`ID`)
+                          KEY `fk_Pedido_Usuario1_idx` (`userEntity`),
+                          CONSTRAINT `fk_Pedido_Usuario1` FOREIGN KEY (`userEntity`) REFERENCES `userEntity` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `pedido`
+-- Dumping data for table `orderEntity`
 --
 
-LOCK TABLES `pedido` WRITE;
-/*!40000 ALTER TABLE `pedido` DISABLE KEYS */;
-/*!40000 ALTER TABLE `pedido` ENABLE KEYS */;
+LOCK TABLES `orderEntity` WRITE;
+/*!40000 ALTER TABLE `orderEntity` DISABLE KEYS */;
+/*!40000 ALTER TABLE `orderEntity` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `producto`
+-- Table structure for table `productEntity`
 --
 
-DROP TABLE IF EXISTS `producto`;
+DROP TABLE IF EXISTS `productEntity`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `producto` (
+CREATE TABLE `productEntity` (
                             `ID` int NOT NULL AUTO_INCREMENT,
                             `nombre` varchar(45) DEFAULT NULL,
                             `Descripcion` varchar(256) DEFAULT NULL,
@@ -107,18 +107,18 @@ CREATE TABLE `producto` (
                             `Inventario` int DEFAULT NULL,
                             PRIMARY KEY (`ID`),
                             KEY `fk_Producto_Inventario1_idx` (`Inventario`),
-                            CONSTRAINT `fk_Producto_Inventario1` FOREIGN KEY (`Inventario`) REFERENCES `inventario` (`ID`)
+                            CONSTRAINT `fk_Producto_Inventario1` FOREIGN KEY (`Inventario`) REFERENCES `stockEntity` (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `producto`
+-- Dumping data for table `productEntity`
 --
 
-LOCK TABLES `producto` WRITE;
-/*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (2,'Caja de gambas','Gambas: Son pequeños crustáceos marinos que se encuentran en aguas cálidas y también en las frías de todo el mundo. Las gambas son de color gris verdoso y se vuelven rosa/salmón cuando se cocinan.',143,'cajagambas.jpeg',NULL),(3,'Jamon de jabugo','El jamón ibérico DOP Jabugo es un producto de alta calidad y sabor inigualable. La Denominación de Origen Protegida garantiza que el jamón cumple con los estándares de calidad más exigentes y que ha sido elaborado en la zona de Jabugo',143,'patanegra.jpg',NULL),(5,'Jamon de jabugo','aaaaaaaaaaaaaaaaaaaaaa',143,'patanegra.jpg',NULL);
-/*!40000 ALTER TABLE `producto` ENABLE KEYS */;
+LOCK TABLES `productEntity` WRITE;
+/*!40000 ALTER TABLE `productEntity` DISABLE KEYS */;
+INSERT INTO `productEntity` VALUES (2,'Caja de gambas','Gambas: Son pequeños crustáceos marinos que se encuentran en aguas cálidas y también en las frías de todo el mundo. Las gambas son de color gris verdoso y se vuelven rosa/salmón cuando se cocinan.',143,'cajagambas.jpeg',NULL),(3,'Jamon de jabugo','El jamón ibérico DOP Jabugo es un productEntity de alta calidad y sabor inigualable. La Denominación de Origen Protegida garantiza que el jamón cumple con los estándares de calidad más exigentes y que ha sido elaborado en la zona de Jabugo',143,'patanegra.jpg',NULL),(5,'Jamon de jabugo','aaaaaaaaaaaaaaaaaaaaaa',143,'patanegra.jpg',NULL);
+/*!40000 ALTER TABLE `productEntity` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -130,13 +130,13 @@ DROP TABLE IF EXISTS `productoa_categoria`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `productoa_categoria` (
                                        `id` int NOT NULL AUTO_INCREMENT,
-                                       `categoria` int DEFAULT NULL,
-                                       `producto` int DEFAULT NULL,
+                                       `categoryEntity` int DEFAULT NULL,
+                                       `productEntity` int DEFAULT NULL,
                                        PRIMARY KEY (`id`),
-                                       KEY `FK7a49t9scxt07ufnttt9l5nc4q` (`categoria`),
-                                       KEY `FKhobpgf9of4ajaa820tkejff87` (`producto`),
-                                       CONSTRAINT `FK7a49t9scxt07ufnttt9l5nc4q` FOREIGN KEY (`categoria`) REFERENCES `categoria` (`ID`),
-                                       CONSTRAINT `FKhobpgf9of4ajaa820tkejff87` FOREIGN KEY (`producto`) REFERENCES `producto` (`ID`)
+                                       KEY `FK7a49t9scxt07ufnttt9l5nc4q` (`categoryEntity`),
+                                       KEY `FKhobpgf9of4ajaa820tkejff87` (`productEntity`),
+                                       CONSTRAINT `FK7a49t9scxt07ufnttt9l5nc4q` FOREIGN KEY (`categoryEntity`) REFERENCES `categoryEntity` (`ID`),
+                                       CONSTRAINT `FKhobpgf9of4ajaa820tkejff87` FOREIGN KEY (`productEntity`) REFERENCES `productEntity` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -158,13 +158,13 @@ DROP TABLE IF EXISTS `productoa_pedido`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `productoa_pedido` (
                                     `id` int NOT NULL AUTO_INCREMENT,
-                                    `pedido` int DEFAULT NULL,
-                                    `producto` int DEFAULT NULL,
+                                    `orderEntity` int DEFAULT NULL,
+                                    `productEntity` int DEFAULT NULL,
                                     PRIMARY KEY (`id`),
-                                    KEY `FKof9udietaqyk6cuxlfn3saqs` (`pedido`),
-                                    KEY `FKc84os6qqw4oy9j1p0y1x43t0g` (`producto`),
-                                    CONSTRAINT `FKc84os6qqw4oy9j1p0y1x43t0g` FOREIGN KEY (`producto`) REFERENCES `producto` (`ID`),
-                                    CONSTRAINT `FKof9udietaqyk6cuxlfn3saqs` FOREIGN KEY (`pedido`) REFERENCES `pedido` (`ID`)
+                                    KEY `FKof9udietaqyk6cuxlfn3saqs` (`orderEntity`),
+                                    KEY `FKc84os6qqw4oy9j1p0y1x43t0g` (`productEntity`),
+                                    CONSTRAINT `FKc84os6qqw4oy9j1p0y1x43t0g` FOREIGN KEY (`productEntity`) REFERENCES `productEntity` (`ID`),
+                                    CONSTRAINT `FKof9udietaqyk6cuxlfn3saqs` FOREIGN KEY (`orderEntity`) REFERENCES `orderEntity` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -190,8 +190,8 @@ CREATE TABLE `productoacategoria` (
                                       PRIMARY KEY (`Producto`,`Categoria`),
                                       KEY `fk_Producto_has_Categoria_Categoria1_idx` (`Categoria`),
                                       KEY `fk_Producto_has_Categoria_Producto1_idx` (`Producto`),
-                                      CONSTRAINT `fk_Producto_has_Categoria_Categoria1` FOREIGN KEY (`Categoria`) REFERENCES `categoria` (`ID`),
-                                      CONSTRAINT `fk_Producto_has_Categoria_Producto1` FOREIGN KEY (`Producto`) REFERENCES `producto` (`ID`)
+                                      CONSTRAINT `fk_Producto_has_Categoria_Categoria1` FOREIGN KEY (`Categoria`) REFERENCES `categoryEntity` (`ID`),
+                                      CONSTRAINT `fk_Producto_has_Categoria_Producto1` FOREIGN KEY (`Producto`) REFERENCES `productEntity` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -217,8 +217,8 @@ CREATE TABLE `productoapedido` (
                                    PRIMARY KEY (`Producto`,`Pedido`),
                                    KEY `fk_Producto_has_Pedido_Pedido1_idx` (`Pedido`),
                                    KEY `fk_Producto_has_Pedido_Producto1_idx` (`Producto`),
-                                   CONSTRAINT `fk_Producto_has_Pedido_Pedido1` FOREIGN KEY (`Pedido`) REFERENCES `pedido` (`ID`),
-                                   CONSTRAINT `fk_Producto_has_Pedido_Producto1` FOREIGN KEY (`Producto`) REFERENCES `producto` (`ID`)
+                                   CONSTRAINT `fk_Producto_has_Pedido_Pedido1` FOREIGN KEY (`Pedido`) REFERENCES `orderEntity` (`ID`),
+                                   CONSTRAINT `fk_Producto_has_Pedido_Producto1` FOREIGN KEY (`Producto`) REFERENCES `productEntity` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -256,13 +256,13 @@ INSERT INTO `rol` VALUES (1,'Administrador'),(2,'Usuario'),(3,'Empleado');
 UNLOCK TABLES;
 
 --
--- Table structure for table `usuario`
+-- Table structure for table `userEntity`
 --
 
-DROP TABLE IF EXISTS `usuario`;
+DROP TABLE IF EXISTS `userEntity`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `usuario` (
+CREATE TABLE `userEntity` (
                            `ID` int NOT NULL AUTO_INCREMENT,
                            `nombre` varchar(45) DEFAULT NULL,
                            `Rol` int NOT NULL,
@@ -274,13 +274,13 @@ CREATE TABLE `usuario` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `usuario`
+-- Dumping data for table `userEntity`
 --
 
-LOCK TABLES `usuario` WRITE;
-/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Antonio',1,'123456'),(2,'Pedro',2,'123456'),(3,'Juan',3,'123456');
-/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+LOCK TABLES `userEntity` WRITE;
+/*!40000 ALTER TABLE `userEntity` DISABLE KEYS */;
+INSERT INTO `userEntity` VALUES (1,'Antonio',1,'123456'),(2,'Pedro',2,'123456'),(3,'Juan',3,'123456');
+/*!40000 ALTER TABLE `userEntity` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

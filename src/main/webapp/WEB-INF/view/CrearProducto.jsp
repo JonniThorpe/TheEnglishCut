@@ -1,12 +1,14 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="from" uri="http://www.springframework.org/tags/form" %>
-<%@ page import="com.gt.theenglishcut.ui.producto" %>
-<%@ page import="com.gt.theenglishcut.entity.Categoria" %>
+<%@ page import="com.theenglishcut.entity.CategoryEntity" %>
+<%@ page import="com.theenglishcut.entity.CategoryEntity" %>
+<%@ page import="com.theenglishcut.entity.ProductEntity" %>
+<%@ page import="com.theenglishcut.ui.producto" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
 
-    producto producto = (com.gt.theenglishcut.ui.producto) request.getAttribute("producto");
-    List<Categoria> categorias = (List<Categoria>) request.getAttribute("categorias");
+    producto producto = (com.theenglishcut.ui.producto) request.getAttribute("producto");
+    List<CategoryEntity> categorias = (List<CategoryEntity>) request.getAttribute("categorias");
 
 %>
 <html>
@@ -21,11 +23,11 @@
     <form:form action="/guardarProducto" method="post" modelAttribute="producto">
         <form:hidden path="idProducto"/>
         <div class="mb-3">
-            <label >Nombre del producto</label>
+            <label >Nombre del productEntity</label>
             <from:input path="nombre" class="col-md-8 form-control input-md"/>
         </div>
         <div class="mb-3">
-            <label for="descripcionProducto">Descripcion del producto</label>
+            <label for="descripcionProducto">Descripcion del productEntity</label>
             <form:textarea id="descripcionProducto" path="descripcion" class="form-control" rows="3"></form:textarea>
         </div>
         <div>
@@ -33,7 +35,7 @@
             <form:select id="categoriasID" path="categorias" items="${categorias}" itemLabel="nombre" itemValue="ID" multiple="true"/>
         </div>
         <div class="mb-3">
-            <label>Precio del producto</label>
+            <label>Precio del productEntity</label>
             <form:input path="precio" class="col-md-8 form-control input-md" />
         </div>
         <div class="form-group mb-3">

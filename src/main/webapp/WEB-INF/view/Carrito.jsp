@@ -1,5 +1,6 @@
-<%@ page import="com.gt.theenglishcut.entity.Producto" %>
+<%@ page import="com.theenglishcut.entity.ProductEntity" %>
 <%@ page import="java.util.*" %>
+<%@ page import="com.theenglishcut.entity.ProductEntity" %>
 <%--
   Created by IntelliJ IDEA.
   User: Jonni
@@ -10,17 +11,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
 
-Map<Producto, Integer> productosCarrito = (Map<Producto, Integer>) request.getAttribute("productosCarrito");
+Map<ProductEntity, Integer> productosCarrito = (Map<ProductEntity, Integer>) request.getAttribute("productosCarrito");
 %>
 <html>
 <head>
     <title>Title</title>
 </head>
 <!--
-TODO Stackear producto en cantidad y precio si son el mismo tipo de producto
-El listado de productos muestra cada producto de la lista productosCarrito definida en la parte superior de esta pagina,
-es necesario que aquel producto que este en la lista varias veces se muestre en una sola fila en lugar de varias,
-donde aparezca ese mismo producto y el numero de veces que aparece en el carrito y un sumatorio del precio del producto
+TODO Stackear productEntity en cantidad y precio si son el mismo tipo de productEntity
+El listado de productEntities muestra cada productEntity de la lista productosCarrito definida en la parte superior de esta pagina,
+es necesario que aquel productEntity que este en la lista varias veces se muestre en una sola fila en lugar de varias,
+donde aparezca ese mismo productEntity y el numero de veces que aparece en el carrito y un sumatorio del precio del productEntity
 -->
 <body>
 <%@ include file = "../componentes/Navbar.jsp" %>
@@ -39,17 +40,17 @@ donde aparezca ese mismo producto y el numero de veces que aparece en el carrito
 
                 double total = 0;
                 int num_productos;
-                    for(Map.Entry<Producto, Integer> mapaProducto: productosCarrito.entrySet()){
-                        Producto producto = mapaProducto.getKey();
+                    for(Map.Entry<ProductEntity, Integer> mapaProducto: productosCarrito.entrySet()){
+                        ProductEntity productEntity = mapaProducto.getKey();
                         num_productos= mapaProducto.getValue();
 
-                double precio = producto.getPrecio();
+                double precio = productEntity.getPrecio();
                 double precio_total=precio * num_productos;
                 %>
                 <tr>
-                    <td><img src="../../img/<%=producto.getImagen()%>" width="64" height="64"></td>
-                    <td><%=producto.getNombre()%></td>
-                    <td><%=producto.getPrecio()%>€</td>
+                    <td><img src="../../img/<%=productEntity.getImagen()%>" width="64" height="64"></td>
+                    <td><%=productEntity.getNombre()%></td>
+                    <td><%=productEntity.getPrecio()%>€</td>
                     <td>
                         <select name="cantidad" id="unidades">
                             <%
@@ -72,7 +73,7 @@ donde aparezca ese mismo producto y el numero de veces que aparece en el carrito
                     <td ><%=total%>€</td>
                 </tr>
             </table>
-            <button type="submit" class="btn btn-primary">Realizar pedido </button>
+            <button type="submit" class="btn btn-primary">Realizar orderEntity </button>
         </div>
     </form>
 </body>
